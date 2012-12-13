@@ -105,7 +105,7 @@ public class MessageSequence {
 		    }
 		} catch (RuntimeException e) {
 		    // TODO Auto-generated catch block
-		    WISEApplication.log_error(
+		    WISELogger.logError(
 			    "Msg SEQ Choke at Parsing message" + nodeName
 				    + ". After:" + i + "\n" + errTemp
 				    + e.toString(), e);
@@ -115,13 +115,13 @@ public class MessageSequence {
 		    if (new_msg != null)
 			myPref.add_message(new_msg, this);
 		} catch (RuntimeException e) {
-		    WISEApplication.log_error("Msg SEQ Choke at Adding "
+		    WISELogger.logError("Msg SEQ Choke at Adding "
 			    + nodeName + ". After:\n" + errTemp + e.toString(),
 			    e);
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - MESSAGE SEQUENCE: ID = " + id
+	    WISELogger.logError("WISE - MESSAGE SEQUENCE: ID = " + id
 		    + "; Survey ID = " + survey_id + " --> " + e.toString(),
 		    null);
 	    return;

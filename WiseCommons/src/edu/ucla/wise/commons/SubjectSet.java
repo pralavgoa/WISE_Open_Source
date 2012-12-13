@@ -49,7 +49,7 @@ public class SubjectSet {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - SUBJECT SET : ID = " + id
+	    WISELogger.logError("WISE - SUBJECT SET : ID = " + id
 		    + "; Survey = " + id + "; Study = " + s.study_space.id
 		    + " --> " + e.toString(), null);
 	    return;

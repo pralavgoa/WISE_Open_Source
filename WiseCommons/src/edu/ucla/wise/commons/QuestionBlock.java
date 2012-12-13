@@ -115,19 +115,21 @@ public class QuestionBlock extends PageItem {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - QUESTION BLOCK: " + e.toString(), null);
 	    return;
 	}
     }
 
-    public void knitRefs(Survey mySurvey) {
+    @Override
+	public void knitRefs(Survey mySurvey) {
 	response_set = mySurvey.get_response_set(responseSet_ID);
 	html = make_html();
     }
 
     /** count number of fields/options in the question block */
-    public int countFields() {
+    @Override
+	public int countFields() {
 	// the number of fields is the total number of subject stems
 	// P return stems.length;
 	return stems.size();
@@ -135,9 +137,10 @@ public class QuestionBlock extends PageItem {
 
     // TODO (low) enable multiselect question blocks by tacking on response set
     // names to field names
-    public String[] listFieldNames() {
+    @Override
+	public String[] listFieldNames() {
 	// P return stem_fieldNames;
-	return (String[]) stem_fieldNames.toArray(new String[stem_fieldNames
+	return stem_fieldNames.toArray(new String[stem_fieldNames
 		.size()]);
     }
 
@@ -438,7 +441,8 @@ public class QuestionBlock extends PageItem {
     }
 
     /** print survey for a question block - used for admin tool: print survey */
-    public String print_survey() {
+    @Override
+	public String print_survey() {
 	String s = "";
 	int len = response_set.get_size();
 	int startV = Integer.parseInt(response_set.startvalue);
@@ -754,7 +758,8 @@ public class QuestionBlock extends PageItem {
     }
 
     /** render results for a question block */
-    public String render_results(Page pg, DataBank db, String whereclause,
+    @Override
+	public String render_results(Page pg, DataBank db, String whereclause,
 	    Hashtable data) {
 
 	int levels = Integer.valueOf(response_set.levels).intValue();
@@ -980,8 +985,7 @@ public class QuestionBlock extends PageItem {
 		stmt.close();
 		conn.close();
 	    } catch (Exception e) {
-		WISEApplication
-			.log_error(
+				WISELogger.logError(
 				"WISE - QUESTION BLOCK RENDER RESULTS: "
 					+ e.toString(), e);
 		return "";
@@ -1224,7 +1228,8 @@ public class QuestionBlock extends PageItem {
      */
 
     /** prints out the question block information */
-    public String toString() {
+    @Override
+	public String toString() {
 	String s = "QUESTION BLOCK<br>";
 	s += super.toString();
 

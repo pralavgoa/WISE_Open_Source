@@ -13,7 +13,7 @@ import edu.ucla.wise.commons.Preface;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.ThankyouPage;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  * Servlet to handle the "Thank You" page
@@ -23,7 +23,8 @@ public class ThankYouGenerator extends HttpServlet {
 
     private static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 
 	// Prepare for writing
@@ -57,7 +58,7 @@ public class ThankYouGenerator extends HttpServlet {
 	    ThankyouPage thankyou_page = pf.get_thankyou_page();
 	    if (thankyou_page == null) {
 		error = "Error: Can't find a default Thank You Page in the Preface for current survey.";
-		WISEApplication.log_error("WISE - THANKYOU_GENERATE " + error,
+		WISELogger.logError("WISE - THANKYOU_GENERATE " + error,
 			null);
 		out.println("<p>" + error + "</p>");
 		return;
@@ -116,7 +117,7 @@ public class ThankYouGenerator extends HttpServlet {
 	    error = "Error: Can't get the preface";
 	}
 	if (error != null) {
-	    WISEApplication.log_error("WISE - THANKYOU GENERATE: " + error,
+	    WISELogger.logError("WISE - THANKYOU GENERATE: " + error,
 		    null);
 	    out.println("<p>" + error + "</p>");
 	}

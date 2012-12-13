@@ -140,7 +140,7 @@ public class Interviewer {
 	    statement.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "INTERVIEWER - VERIFY INTERVIEWER:" + e.toString(), null);
 	    get_result = false;
 	}
@@ -174,7 +174,7 @@ public class Interviewer {
 	    statement.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "INTERVIEW - CREATE SURVEY MESSAGE:" + e.toString(), null);
 	}
 	return survey_msg_id;
@@ -203,7 +203,7 @@ public class Interviewer {
 	    statement.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "INTERVIEW - BEGIN SESSION:" + e.toString(), null);
 	}
     }
@@ -223,7 +223,7 @@ public class Interviewer {
 	    statement.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("INTERVIEW - SET DONE:" + e.toString(),
+			WISELogger.logError("INTERVIEW - SET DONE:" + e.toString(),
 		    null);
 	}
     }

@@ -11,13 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import edu.ucla.wise.commons.AdminInfo;
 import edu.ucla.wise.commons.SurveyorApplication;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 import edu.ucla.wise.commons.WiseConstants;
 
 public class SurveyViewer extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	res.setContentType("text/html");
@@ -34,7 +35,7 @@ public class SurveyViewer extends HttpServlet {
 		    + initErr
 		    + "</td></tr>"
 		    + "</table></center></body></html>");
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+			WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should
 			  // write to
 			  // file if

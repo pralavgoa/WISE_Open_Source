@@ -1,1 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<project name="WiseCommons" default="jar">
+<target name="compile">
+    <javac compiler="javac1.6" srcdir="src" destdir="bin" />
+</target>
+
+<target name="jar">
+        <jar destfile="dist/WiseCommons.jar" basedir="bin" />
+</target>
+</project>

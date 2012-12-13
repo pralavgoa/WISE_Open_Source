@@ -45,7 +45,7 @@ public class IRBSet {
 		irb_logo = "";
 
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - IRB SET : ID = " + id
+			WISELogger.logError("WISE - IRB SET : ID = " + id
 		    + "; Preface = " + p.project_name + " --> " + e.toString(),
 		    null);
 	    return;

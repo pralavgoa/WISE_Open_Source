@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ucla.wise.commons.AdminInfo;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  Load a new survey and set up its Data tables. 
@@ -20,7 +20,8 @@ import edu.ucla.wise.commons.WISEApplication;
 public class SurveyReloader extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	res.setContentType("text/html");
@@ -41,7 +42,7 @@ public class SurveyReloader extends HttpServlet {
 	    out.println("<tr><td>Sorry, the WISE Administration application failed to initialize. "
 		    + "Please contact the system administrator with the following information."
 		    + "<P>" + initErr + "</td></tr>");
-	    WISEApplication.log_error("WISE Admin Init Error: " + initErr,
+			WISELogger.logError("WISE Admin Init Error: " + initErr,
 		    null);// should write to file if no email
 	} else
 	    out.println("<tr><td align=center>WISE Admin Application Reload succeeded.</td></tr></table>");

@@ -21,7 +21,7 @@ public class Reminder extends Message {
 		    .getNamedItem("Max_Count").getNodeValue());
 	    // System.out.println("max count=" + max_count);
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE EMAIL - REMINDER: ID = " + id
+	    WISELogger.logError("WISE EMAIL - REMINDER: ID = " + id
 		    + "; Subject = " + subject + " --> " + e.toString(), null);
 	    return;
 	}

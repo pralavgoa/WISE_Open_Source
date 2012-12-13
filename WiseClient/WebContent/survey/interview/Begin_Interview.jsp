@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=windows-1252"%><%@ page
 	language="java"%><%@ page
-	import="edu.ucla.wise.commons.*,edu.ucla.wise.client.interview.*,java.sql.*,java.util.Date,java.util.*,java.net.*,java.io.*,org.xml.sax.*,org.w3c.dom.*,javax.xml.parsers.*,java.lang.*,javax.xml.transform.*,javax.xml.transform.dom.*,javax.xml.transform.stream.*,com.oreilly.servlet.MultipartRequest"%><html>
+	import="edu.ucla.wise.commons.*,edu.ucla.wise.shared.*,edu.ucla.wise.client.interview.*,java.sql.*,java.util.Date,java.util.*,java.net.*,java.io.*,org.xml.sax.*,org.w3c.dom.*,javax.xml.parsers.*,java.lang.*,javax.xml.transform.*,javax.xml.transform.dom.*,javax.xml.transform.stream.*,com.oreilly.servlet.MultipartRequest"%><html>
 <head>
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1252">
@@ -34,8 +34,8 @@
 	//Forward to the begin servlet in WISE
 	if (survey_msgid != null)
 		response.sendRedirect(path + "survey?i=interview&msg="
-		+ WISEApplication.encode(survey_msgid) + "&t="
-		+ WISEApplication.encode(study_id));
+		+ StringEncoderDecoder.encode(survey_msgid) + "&t="
+		+ StringEncoderDecoder.encode(study_id));
 	else
 		out.println("Begin Interivew Error: Can't create a message record in the survey message use table");
 %>

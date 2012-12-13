@@ -71,7 +71,7 @@ public class ThankyouPage {
 	    }
 	} catch (Exception e) {
 	    // WISE_Application.email_alert("WISE - THANKYOU PAGE : Preface = "+p.project_name+"; Study = "+p.study_space.id+" --> "+e.toString());
-	    WISEApplication.log_error("WISE - THANKYOU PAGE : Preface = "
+	    WISELogger.logError("WISE - THANKYOU PAGE : Preface = "
 		    + p.project_name + "--> " + e.toString(), e);
 	    return;
 	}

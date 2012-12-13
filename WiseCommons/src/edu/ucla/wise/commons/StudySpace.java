@@ -83,7 +83,7 @@ public class StudySpace {
     /** search by the numeric study ID and return the Study_Space instance */
     public static StudySpace get_Space(String studyID) {
 	if (SPACE_names == null || ALL_SPACE == null)
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "GET Study Space failure - hash uninitialized. Try server restart on "
 			    + WISEApplication.rootURL + ", "
 			    + SurveyorApplication.ApplicationName, null);
@@ -127,7 +127,7 @@ public class StudySpace {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("Load Study Spaces Error for ID "
+	    WISELogger.logError("Load Study Spaces Error for ID "
 		    + studyID + ", name " + study_name + "\n" + e, e);
 	}
 	return resultstr;
@@ -183,7 +183,7 @@ public class StudySpace {
 	    db = new DataBank(this); // one DB per SS
 	    db.readSurveys();
 	} catch (Exception e) {
-	    WISEApplication.log_error("Study Space create failure: " + id
+	    WISELogger.logError("Study Space create failure: " + id
 		    + " at survey : " + filename + ". Error: " + e, e);
 	}
     }
@@ -255,7 +255,7 @@ public class StudySpace {
 		surveys.put(sid, s);
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("Study Space " + dir_name
+	    WISELogger.logError("Study Space " + dir_name
 		    + " failed to parse survey " + filename + ". Error: " + e,
 		    e);
 	}
@@ -284,7 +284,7 @@ public class StudySpace {
 	if (preface == null) // should happen only if there's been some major
 			     // problem
 	    if (!load_preface()) {
-		WISEApplication.log_info("Study Space " + dir_name
+				WISELogger.logInfo("Study Space " + dir_name
 			+ " failed to load its preface file ");
 		return null;
 	    }
@@ -319,8 +319,8 @@ public class StudySpace {
 	MessageSequence msg_seq = this.preface
 		.get_message_sequence(message_seq_id);
 	if (msg_seq == null) {
-	    AdminInfo
-		    .log_info("ADMIN INFO - SEND MESSAGES: Can't get the requested  message sequence "
+			WISELogger
+					.logInfo("ADMIN INFO - SEND MESSAGES: Can't get the requested  message sequence "
 			    + message_seq_id + AdminInfo.class.getSimpleName());
 	    return null;
 	}
@@ -329,8 +329,8 @@ public class StudySpace {
 	// 'other'
 	// messages
 	if (msg == null) {
-	    AdminInfo
-		    .log_info("ADMIN INFO - SEND MESSAGES: Can't get the message from hash");
+			WISELogger
+					.logInfo("ADMIN INFO - SEND MESSAGES: Can't get the message from hash");
 	    return null;
 	}
 	String outputString = "";
@@ -429,7 +429,7 @@ public class StudySpace {
 	    }
 	    conn.close();
 	} catch (Exception e) {
-	    AdminInfo.log_error("ADMIN INFO - SEND MESSAGES: " + e.toString(),
+			WISELogger.logError("ADMIN INFO - SEND MESSAGES: " + e.toString(),
 		    e);
 	}
 	// If the call comes from UI, we return outputString, if the call comes
@@ -515,7 +515,8 @@ public class StudySpace {
 
     /** prints a specific study space */
 
-    public String toString() {
+    @Override
+	public String toString() {
 	String s = "STUDY SPACE<br>";
 	s += "ID: " + id + "<br>";
 	s += "Location: " + dir_name + "<br>";

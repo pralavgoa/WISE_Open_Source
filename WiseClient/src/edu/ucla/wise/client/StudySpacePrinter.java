@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.SurveyorApplication;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  Print a study space, which should force a load
@@ -19,7 +19,8 @@ import edu.ucla.wise.commons.WISEApplication;
 public class StudySpacePrinter extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	PrintWriter out;
@@ -29,7 +30,7 @@ public class StudySpacePrinter extends HttpServlet {
 	if (initErr != null) {
 	    out.println(initErr + "<p> Servlet called: Preface Loader </p>"
 		    + SurveyorApplication.initErrorHtmlFoot);
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+	    WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should write to file if no email
 	    return;
 	}

@@ -64,7 +64,7 @@ public class User {
 	public Survey currentSurvey;
 	public Page currentPage;
 
-	private Hashtable allAnswers = new Hashtable();
+	private final Hashtable allAnswers = new Hashtable();
 	private UserDBConnection myDataBank;
 
 	// private String currentState;
@@ -133,7 +133,7 @@ public class User {
 				}
 			}
 		} catch (Exception e) {
-			WISEApplication.log_error(
+			WISELogger.logError(
 					"USER CONSTRUCTOR failed w/ " + e.toString(), e);
 			id = null; // signal an improperly initialized User
 		}
@@ -157,7 +157,7 @@ public class User {
 			}
 			myDataBank = new UserDBConnection(this);
 		} catch (Exception e) {
-			WISEApplication.log_error(
+			WISELogger.logError(
 					"USER CONSTRUCTOR can't find MESSAGE_INDEX. :"
 							+ e.toString(), e);
 		}
@@ -257,7 +257,7 @@ public class User {
 		try {
 			value_str = (String) allAnswers.get(fieldName);
 		} catch (Exception e) {
-			WISEApplication.log_error("USER can't GET DATA:" + e.toString()
+			WISELogger.logError("USER can't GET DATA:" + e.toString()
 					+ allAnswers.toString(), e);
 		}
 		if (value_str != null && value_str.length() > 0) {// check for empty
@@ -305,8 +305,7 @@ public class User {
 				str += "}";
 			}
 		} catch (Exception e) {
-			WISEApplication
-					.log_error("USER RECORD EXISTS: " + e.toString(), e);
+			WISELogger.logError("USER RECORD EXISTS: " + e.toString(), e);
 		}
 		return str;
 	}
@@ -351,7 +350,7 @@ public class User {
 						"<p>Error: Can't find message sequence for the current survey.</p>");
 			}
 		} catch (Exception e) {
-			WISEApplication.log_error(
+			WISELogger.logError(
 					"USER can't get message sequence: " + e.toString(), e);
 		}
 		return msg_seq;
@@ -380,7 +379,7 @@ public class User {
 			user_session = myDataBank.create_survey_session(browser_useragent,
 					messageID);
 		} catch (Exception e) {
-			WISEApplication.log_error(
+			WISELogger.logError(
 					"USER start_survey_session:" + e.toString(), e);
 		}
 	}
@@ -429,7 +428,7 @@ public class User {
 			myDataBank.set_consent("N");
 			myDataBank.set_userState("declined");
 		} catch (Exception e) {
-			WISEApplication.log_error("Decline:" + e.toString(), e);
+			WISELogger.logError("Decline:" + e.toString(), e);
 		}
 	}
 

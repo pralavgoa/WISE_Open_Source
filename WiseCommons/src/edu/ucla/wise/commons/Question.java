@@ -78,18 +78,19 @@ public class Question extends PageItem {
 	    else
 		oneLine = false;
 	} catch (Exception e) {
-	    WISEApplication
-		    .log_error("WISE - QUESTION: " + e.toString(), null);
+			WISELogger.logError("WISE - QUESTION: " + e.toString(), null);
 	    return;
 	}
     }
 
     /** Default field count for question */
-    public int countFields() {
+    @Override
+	public int countFields() {
 	return 1;
     }
 
-    public String[] listFieldNames() {
+    @Override
+	public String[] listFieldNames() {
 	// default is to wrap item name in an array
 	String[] fieldNames = new String[1];
 	fieldNames[0] = name;
@@ -97,7 +98,8 @@ public class Question extends PageItem {
     }
 
     /** check if the question field is required to be filled out */
-    public boolean isRequired() {
+    @Override
+	public boolean isRequired() {
 	if (requiredField.equalsIgnoreCase("true"))
 	    return true;
 	else
@@ -108,7 +110,8 @@ public class Question extends PageItem {
      * return the stem for indication purpose if the required field is not
      * filled out
      */
-    public String get_required_stem() {
+    @Override
+	public String get_required_stem() {
 	// assign value "A" to the unfilled required field to let the JavaScript
 	// distinguish
 	String s = "A";
@@ -137,7 +140,7 @@ public class Question extends PageItem {
 	    stmt.close();
 	    conn.close();
 	} catch (Exception e) {
-	    AdminInfo.log_error("WISE - QUESTION GET AVG: " + e.toString(), e);
+			WISELogger.logError("WISE - QUESTION GET AVG: " + e.toString(), e);
 	}
 	return avg;
     }
@@ -198,7 +201,8 @@ public class Question extends PageItem {
     // }
 
     /** print out the information about a question */
-    public String toString() {
+    @Override
+	public String toString() {
 	String s = super.toString();
 	s += "Stem: " + stem + "<br>";
 	s += "Required: " + isRequired() + "<br>";

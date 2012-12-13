@@ -3,6 +3,8 @@ package edu.ucla.wise.commons;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import edu.ucla.wise.shared.StringEncoderDecoder;
+
 /**
  * This class represents our email prompts
  */
@@ -105,7 +107,7 @@ public class Message {
 		}
 	    }
 	} catch (Exception e) {
-	    AdminInfo.log_error("WISE - TYPE MESSAGE: ID = " + id
+			WISELogger.logError("WISE - TYPE MESSAGE: ID = " + id
 		    + "; Subject = " + subject + " --> " + e.toString(), e);
 	    return;
 	}
@@ -116,7 +118,7 @@ public class Message {
     public void resolveRef(Preface myPreface) {
 	try {
 	    if (msg_ref != null) {
-		Message refd_msg = (Message) myPreface.get_message(msg_ref);
+		Message refd_msg = myPreface.get_message(msg_ref);
 		if (refd_msg.msg_ref == null) {
 		    main_body = refd_msg.main_body;
 		    has_link = refd_msg.has_link;
@@ -124,8 +126,8 @@ public class Message {
 		    html_tail = refd_msg.html_tail;
 		    html_header = refd_msg.html_header;
 		} else
-		    WISEApplication
-			    .log_error(
+					WISELogger
+							.logError(
 				    "MESSAGE: ID = "
 					    + id
 					    + "; Subject = "
@@ -134,7 +136,7 @@ public class Message {
 				    null);
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("Failed to resolve ref MESSAGE: ID = "
+			WISELogger.logError("Failed to resolve ref MESSAGE: ID = "
 		    + id + "; Subject = " + subject + " --> " + e.toString(),
 		    null);
 	    return;
@@ -206,12 +208,12 @@ public class Message {
 	    // servlet_path+"begin?msg="+WISE_Application.encode(msg_index)
 	    // +"&t="+WISE_Application.encode(ssid);
 	    String reminder_link = servlet_path + "survey?msg="
-		    + WISEApplication.encode(msg_index) + "&t="
-		    + WISEApplication.encode(ssid);
+		    + StringEncoderDecoder.encode(msg_index) + "&t="
+		    + StringEncoderDecoder.encode(ssid);
 
 	    String decline_link = servlet_path + "survey/declineNOW?m="
-		    + WISEApplication.encode(msg_index) + "&t="
-		    + WISEApplication.encode(ssid);
+		    + StringEncoderDecoder.encode(msg_index) + "&t="
+		    + StringEncoderDecoder.encode(ssid);
 
 	    text_body = text_body.replaceAll("URL LINK", reminder_link + "\n");
 	    if (has_dlink)
@@ -231,10 +233,10 @@ public class Message {
 	// annonymous users because study space can have multiple surveys.
 	if (msgIndex == null)
 	    return servletPath + "survey?t="
-		    + WISEApplication.encode(studySpaceId) + "&s="
+		    + StringEncoderDecoder.encode(studySpaceId) + "&s="
 		    + CommonUtils.base64Encode(surveyId);
-	return servletPath + "survey?msg=" + WISEApplication.encode(msgIndex)
-		+ "&t=" + WISEApplication.encode(surveyId);
+	return servletPath + "survey?msg=" + StringEncoderDecoder.encode(msgIndex)
+		+ "&t=" + StringEncoderDecoder.encode(surveyId);
     }
 
     public String compose_html_body(String salutation, String lastname,
@@ -255,11 +257,11 @@ public class Message {
 	    // String reminder_link =
 	    // servlet_path+"begin?msg="+WISE_Application.encode(msg_index)
 	    String reminder_link = servlet_path + "survey?msg="
-		    + WISEApplication.encode(msg_index) + "&t="
-		    + WISEApplication.encode(ssid);
+		    + StringEncoderDecoder.encode(msg_index) + "&t="
+		    + StringEncoderDecoder.encode(ssid);
 	    String decline_link = servlet_path + "declineNOW?m="
-		    + WISEApplication.encode(msg_index) + "&t="
-		    + WISEApplication.encode(ssid);
+		    + StringEncoderDecoder.encode(msg_index) + "&t="
+		    + StringEncoderDecoder.encode(ssid);
 	    html_body = html_body.replaceAll("URL LINK",
 		    "<p align=center><a href='" + reminder_link + "'>"
 			    + reminder_link + "</a></p>");
@@ -296,7 +298,8 @@ public class Message {
 	return outputString;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
 	return "<P><B>Message</b> ID: " + id + "<br>\n" + "References: "
 		+ msg_ref + "<br>\n" + "Subject: " + subject + "<br>\n"
 		+ "Body: " + main_body + "</p>\n";

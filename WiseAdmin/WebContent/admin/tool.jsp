@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=windows-1252"%><%@ page
 	language="java"%>
 <%@ page
-	import="edu.ucla.wise.commons.*,edu.ucla.wise.commons.WISE_Application,java.sql.*,java.util.Date,java.util.*,java.net.*,java.io.*,org.xml.sax.*,org.w3c.dom.*,javax.xml.parsers.*,java.lang.*,java.text.*,javax.xml.transform.*,javax.xml.transform.dom.*,javax.xml.transform.stream.*,com.oreilly.servlet.MultipartRequest"%>
+	import="edu.ucla.wise.commons.*,edu.ucla.wise.commons.WISEApplication,java.sql.*,java.util.Date,java.util.*,java.net.*,java.io.*,org.xml.sax.*,org.w3c.dom.*,javax.xml.parsers.*,java.lang.*,java.text.*,javax.xml.transform.*,javax.xml.transform.dom.*,javax.xml.transform.stream.*,com.oreilly.servlet.MultipartRequest"%>
 <html>
 <head>
 <meta http-equiv="Content-Type"

@@ -32,7 +32,7 @@ public class SkipList {
 		pages[i] = n2.getNodeValue();
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - SKIP LIST CONSTRUCTOR: " + e.toString(), null);
 	    return;
 	}

@@ -16,6 +16,7 @@ import edu.ucla.wise.commons.CommonUtils;
 import edu.ucla.wise.commons.DataBank;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /**
  * processes the results of a question and determines where to go next
@@ -30,6 +31,7 @@ public class AppImageRenderer extends HttpServlet {
 	Logger log = Logger.getLogger(AppImageRenderer.class);
 
 	/** Process the quiz request */
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -58,7 +60,7 @@ public class AppImageRenderer extends HttpServlet {
 				.getAttribute("STUDYSPACE");
 		if (study_space == null) {
 			//retrieve image from directory [duplicated code]
-			WISEApplication.log_debug("Fetching image from file system");
+			WISELogger.logInfo("Fetching image from file system");
 			getImageFromFileSystem(response,image_name,app_name);			
 			//P			out.println("<p>Error: Can't find the user & study space.</p>");
 			return;
@@ -82,7 +84,7 @@ public class AppImageRenderer extends HttpServlet {
 			}
 			else
 			{
-				WISEApplication.log_debug("Fetching image from file system");
+				WISELogger.logInfo("Fetching image from file system");
 				getImageFromFileSystem(response,image_name, app_name);
 			}
 		}

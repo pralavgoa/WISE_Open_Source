@@ -206,7 +206,7 @@
 
 					} //end of try
 					catch (Exception e) {
-						WISEApplication.log_error("WATI - SHOW_ASSIGNMENT: "
+						WISELogger.logError("WATI - SHOW_ASSIGNMENT: "
 								+ e.toString(), e);
 						return;
 					}

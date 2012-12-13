@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import edu.ucla.wise.commons.MessageSequence;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.SurveyorApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  Direct the user coming from email URL or interviewers to appropriate next step or page
@@ -20,7 +21,8 @@ import edu.ucla.wise.commons.SurveyorApplication;
 public class SurveyorTest extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// FIND server's default file location
 	// File test_file = new File("whereAmI");
@@ -43,7 +45,7 @@ public class SurveyorTest extends HttpServlet {
 		    + initErr
 		    + "</td></tr>"
 		    + "</table></center></body></html>");
-	    SurveyorApplication.log_error("WISE Surveyor Init Error: "
+			WISELogger.logError("WISE Surveyor Init Error: "
 		    + initErr, null);// should write to file if no email
 	    return;
 	}

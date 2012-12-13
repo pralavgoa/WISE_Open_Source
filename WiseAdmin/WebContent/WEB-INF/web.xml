@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>WiseAdmin</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
-  	<servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>WiseAdmin</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<listener>
+		<listener-class>edu.ucla.wise.admin.initializer.AdminApplicationInitializer</listener-class>
+	</listener>
+
+	<servlet>
 
 		<display-name>logonp</display-name>
 		<servlet-name>logonp</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.logonp</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.LogonHandler</servlet-class>
 
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>logonp</servlet-name>
+		<url-pattern>/admin/logonp</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet>
 
 		<display-name>logout</display-name>
 		<servlet-name>logout</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.logout</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.LogoutHandler</servlet-class>
 
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>logout</servlet-name>
+		<url-pattern>/admin/logout</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 
 		<display-name>complete</display-name>
 		<servlet-name>complete</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.complete</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.CompletionAcceptor</servlet-class>
 
 	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>complete</servlet-name>
+		<url-pattern>/admin/complete</url-pattern>
+	</servlet-mapping>
 
 	<!-- servlet> <display-name>AppImageRender</display-name> <servlet-name>AppImageRender</servlet-name> 
 		<servlet-class>AppImageRender</servlet-class> </servlet -->
@@ -41,47 +64,77 @@
 
 		<display-name>reload</display-name>
 		<servlet-name>reload</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.reload</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.SurveyReloader</servlet-class>
 
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>reload</servlet-name>
+		<url-pattern>/admin/reload</url-pattern>
+	</servlet-mapping>
+
+
 
 	<servlet>
 
 		<display-name>survey_result</display-name>
 		<servlet-name>survey_result</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.survey_result</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.SurveyResultHandler</servlet-class>
 
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>survey_result</servlet-name>
+		<url-pattern>/admin/survey_result</url-pattern>
+	</servlet-mapping>
+
+
 
 	<servlet>
 
 		<display-name>view_survey</display-name>
 		<servlet-name>view_survey</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.view_survey</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.SurveyViewer</servlet-class>
 
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>view_survey</servlet-name>
+		<url-pattern>/admin/view_survey</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet>
 
 		<display-name>download_file</display-name>
 		<servlet-name>download_file</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.download_file</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.FileDownloader</servlet-class>
 
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>download_file</servlet-name>
+		<url-pattern>/admin/download_file</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 
 		<display-name>dev2prod</display-name>
 		<servlet-name>dev2prod</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.dev2prod</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.DevToProdChanger</servlet-class>
 
 	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>dev2prod</servlet-name>
+		<url-pattern>/admin/dev2prod</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 
 		<display-name>load_data</display-name>
 		<servlet-name>load_data</servlet-name>
-		<servlet-class>edu.ucla.wise.admin.load_data</servlet-class>
+		<servlet-class>edu.ucla.wise.admin.DataLoader</servlet-class>
 
 	</servlet>
 
@@ -90,69 +143,50 @@
 		<url-pattern>/admin/load_data</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>dev2prod</servlet-name>
-		<url-pattern>/admin/dev2prod</url-pattern>
-	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>print_survey</servlet-name>
+		<servlet-class>edu.ucla.wise.admin.SurveyPrinter</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>print_survey</servlet-name>
 		<url-pattern>/admin/print_survey</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>reload</servlet-name>
-		<url-pattern>/admin/reload</url-pattern>
-	</servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>view_survey</servlet-name>
-		<url-pattern>/admin/view_survey</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>survey_result</servlet-name>
-		<url-pattern>/admin/survey_result</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>download_file</servlet-name>
-		<url-pattern>/admin/download_file</url-pattern>
-	</servlet-mapping>
 
 	<!-- servlet-mapping> <servlet-name>AppImageRender</servlet-name> <url-pattern>/appImgRender</url-pattern> 
 		</servlet-mapping -->
 
-	<servlet-mapping>
-		<servlet-name>logonp</servlet-name>
-		<url-pattern>/admin/logonp</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>logout</servlet-name>
-		<url-pattern>/admin/logout</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>complete</servlet-name>
-		<url-pattern>/admin/complete</url-pattern>
-	</servlet-mapping>
-
-
 	<!-- <extension>jar </extension> <mime-type> setIfNone(mimeTypesMap, "jar", 
 		"application/x-java-archive"); </mime-type> -->
 
+
+	<servlet>
+		<servlet-name>admin_view_form</servlet-name>
+		<servlet-class>edu.ucla.wise.admin.SurveyPagesViewer</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>admin_view_form</servlet-name>
 		<url-pattern>/admin/admin_view_form</url-pattern>
 	</servlet-mapping>
 
 
+	<servlet>
+		<servlet-name>admin_survey_update</servlet-name>
+		<servlet-class>edu.ucla.wise.admin.SurveyReloader</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>admin_survey_update</servlet-name>
 		<url-pattern>/admin/admin_survey_update</url-pattern>
 	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>admin_print_survey</servlet-name>
+		<servlet-class>edu.ucla.wise.admin.SurveyPrinter</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>admin_print_survey</servlet-name>

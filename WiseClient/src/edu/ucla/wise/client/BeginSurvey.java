@@ -13,8 +13,9 @@ import edu.ucla.wise.commons.CommonUtils;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 import edu.ucla.wise.commons.WiseConstants;
+import edu.ucla.wise.shared.StringEncoderDecoder;
 
 /*
  Direct the user coming from email URL or interviewers to appropriate next step or page
@@ -23,7 +24,8 @@ import edu.ucla.wise.commons.WiseConstants;
 public class BeginSurvey extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	res.setContentType("text/html");
 	PrintWriter out = res.getWriter();
@@ -35,7 +37,7 @@ public class BeginSurvey extends HttpServlet {
 	    out.println(initErr
 		    + "<p> WISE Begin failed </p>"
 		    + edu.ucla.wise.commons.SurveyorApplication.initErrorHtmlFoot);
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+			WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should write to file if no email
 	    return;
 	}
@@ -89,7 +91,7 @@ public class BeginSurvey extends HttpServlet {
 	User theUser;
 
 	// decode study space ID
-	spaceid = WISEApplication.decode(spaceid_encode);
+		spaceid = StringEncoderDecoder.decode(spaceid_encode);
 
 	// initiate the study space ID and put it into the session
 	session.removeAttribute("STUDYSPACE");
@@ -104,7 +106,7 @@ public class BeginSurvey extends HttpServlet {
 	}
 
 	// decode the msg ID
-	msgid = WISEApplication.decode(msgid_encode);
+		msgid = StringEncoderDecoder.decode(msgid_encode);
 	// get the user ID
 	theUser = (User) session.getAttribute("USER");
 
@@ -124,7 +126,7 @@ public class BeginSurvey extends HttpServlet {
 		    + "<tr><td>Sorry, the information in your email invitation didn't identify you."
 		    + "Please check with person who sent your invitation.</td></tr>"
 		    + "</table></center></body></html>");
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "WISE Error: Begin servlet failed for message id " + msgid,
 		    null);
 	    return;
@@ -158,7 +160,7 @@ public class BeginSurvey extends HttpServlet {
 									  // of
 									  // triage
 									  // servlet
-	    WISEApplication.log_error("Main URL is [" + main_url + "]", null);
+			WISELogger.logError("Main URL is [" + main_url + "]", null);
 	}
 	// Debugging statements
 	// if(Surveyor_Application.shared_file_url == null)

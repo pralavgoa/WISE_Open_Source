@@ -13,7 +13,7 @@ import edu.ucla.wise.commons.Page;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.Survey;
 import edu.ucla.wise.commons.SurveyorApplication;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /**
  * View the survey results (with the summary of data) by page (viewed by admin
@@ -23,7 +23,8 @@ import edu.ucla.wise.commons.WISEApplication;
 public class view_results extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	res.setContentType("text/html");
@@ -33,7 +34,7 @@ public class view_results extends HttpServlet {
 	if (initErr != null) {
 	    out.println(initErr + "<p> Servlet called: View_results </p>"
 		    + SurveyorApplication.initErrorHtmlFoot);
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+	    WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should
 			  // write to
 			  // file if
@@ -50,9 +51,9 @@ public class view_results extends HttpServlet {
 	// create session info from the first URL link
 	if (a != null && a.equalsIgnoreCase("FIRSTPAGE")) {
 	    // get the study id
-	    study_id = (String) req.getParameter("SID");
+	    study_id = req.getParameter("SID");
 	    // get the survey id
-	    survey_id = (String) req.getParameter("s");
+	    survey_id = req.getParameter("s");
 
 	    // get the current study space
 	    StudySpace ss = StudySpace.get_Space(study_id);

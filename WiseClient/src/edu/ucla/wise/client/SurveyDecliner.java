@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 import edu.ucla.wise.commons.WiseConstants;
+import edu.ucla.wise.shared.StringEncoderDecoder;
 
 /*
  If user declined the invitation from the email link, then
@@ -23,7 +24,8 @@ import edu.ucla.wise.commons.WiseConstants;
 public class SurveyDecliner extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	PrintWriter out;
@@ -50,8 +52,8 @@ public class SurveyDecliner extends HttpServlet {
 	}
 
 	// decode the message ID & study space ID
-	String spaceid = WISEApplication.decode(spaceid_encode);
-	String msgid = WISEApplication.decode(msgid_encode);
+		String spaceid = StringEncoderDecoder.decode(spaceid_encode);
+		String msgid = StringEncoderDecoder.decode(msgid_encode);
 
 	// initiate the study space ID and put it into the session
 	StudySpace theStudy = StudySpace.get_Space(spaceid);
@@ -66,7 +68,7 @@ public class SurveyDecliner extends HttpServlet {
 	    // out.println("<body text=#000000 bgColor=#ffffcc><center><table>");
 	    out.println("<tr><td>Error: Can't get the user information.</td></tr>");
 	    out.println("</table></center></body></html>");
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE BEGIN - Error: Can't create the user.", null);
 	    return;
 	}

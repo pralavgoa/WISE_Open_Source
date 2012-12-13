@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +30,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 import edu.ucla.wise.commons.AdminInfo;
 import edu.ucla.wise.commons.CommonUtils;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 import edu.ucla.wise.commons.WiseConstants;
 
 public class DataLoader extends HttpServlet {
@@ -155,7 +154,7 @@ public class DataLoader extends HttpServlet {
 	    }
 	    out.println("</table>");
 	} catch (Exception e) {
-	    AdminInfo.log_error(
+			WISELogger.logError(
 		    "WISE ADMIN - PROCESS SURVEY FILE:" + e.toString(), e);
 	    return_val = "ERROR";
 	}
@@ -284,7 +283,8 @@ public class DataLoader extends HttpServlet {
     }
 
     // public void handle_uploaded_file(File f, JspWriter out, Statement stmt)
-    public void service(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	public void service(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException
 
     {
@@ -362,7 +362,7 @@ public class DataLoader extends HttpServlet {
 				    + "VALUES (?,?,?)");
 		    psmnt.setString(1, filename);
 		    fis = new FileInputStream(f);
-		    psmnt.setBinaryStream(2, (InputStream) fis,
+		    psmnt.setBinaryStream(2, fis,
 			    (int) (f.length()));
 		    java.util.Date currentDate = new java.util.Date();
 		    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
@@ -471,7 +471,7 @@ public class DataLoader extends HttpServlet {
 	    }// else
 	}// try
 	catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "WISE - ADMIN load_data.jsp: " + e.toString(), e);
 	    out.println("<h3>Invalid XML document submitted.  Please try again.</h3>");
 	    out.println("<p>Error: " + e.toString() + "</p>");

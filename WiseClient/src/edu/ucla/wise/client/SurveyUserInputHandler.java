@@ -14,7 +14,8 @@ import javax.servlet.http.HttpSession;
 import edu.ucla.wise.commons.Interviewer;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
+import edu.ucla.wise.shared.StringEncoderDecoder;
 
 /*
  Read the survey results from the form on the survey page after it's submitted by the user
@@ -29,7 +30,8 @@ public class SurveyUserInputHandler extends HttpServlet {
 		+ "</script></head>" + "<body></body>" + "</html>";
     }
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare to write
 	PrintWriter out;
@@ -151,20 +153,20 @@ public class SurveyUserInputHandler extends HttpServlet {
 				+ "/"
 				+ theUser.currentSurvey.study_space.dir_name
 				+ "/survey?t="
-				+ WISEApplication
-					.encode(theUser.currentSurvey.edu_module)
-				+ "&r=" + WISEApplication.encode(theUser.id);
+								+ StringEncoderDecoder
+										.encode(theUser.currentSurvey.edu_module)
+				+ "&r=" + StringEncoderDecoder.encode(theUser.id);
 		    // otherwise the link will be the URL plus the user ID
 		    else {
 			new_page = new_page
 				+ "?s="
-				+ WISEApplication.encode(theUser.id)
+				+ StringEncoderDecoder.encode(theUser.id)
 				+ "&si="
 				+ theUser.currentSurvey.id
 				+ "&ss="
-				+ WISEApplication
-					.encode(theUser.currentSurvey.study_space.id);
-			WISEApplication.log_info(new_page
+								+ StringEncoderDecoder
+										.encode(theUser.currentSurvey.study_space.id);
+						WISELogger.logInfo(new_page
 				+ SurveyUserInputHandler.class.getName());
 		    }
 		}

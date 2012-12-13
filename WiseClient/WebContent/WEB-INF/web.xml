@@ -19,7 +19,7 @@
 
 		<display-name>print_survey</display-name>
 		<servlet-name>print_survey</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.print_survey</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.SurveyPrinter</servlet-class>
 
 	</servlet>
 	<servlet-mapping>
@@ -30,134 +30,128 @@
 	<servlet>
 		<display-name>imageRender</display-name>
 		<servlet-name>AppImageRender</servlet-name>
-		<servlet-class>edu.ucla.wise.client.AppImageRender</servlet-class>
+		<servlet-class>edu.ucla.wise.client.AppImageRenderer</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>styleRender</display-name>
 		<servlet-name>AppStyleRender</servlet-name>
-		<servlet-class>edu.ucla.wise.client.AppStyleRender</servlet-class>
+		<servlet-class>edu.ucla.wise.client.AppStyleRenderer</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>setup_survey</display-name>
 		<servlet-name>setup_survey</servlet-name>
-		<servlet-class>edu.ucla.wise.client.setup_survey</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyInitializer</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>save_anno_user</display-name>
 		<servlet-name>save_anno_user</servlet-name>
-		<servlet-class>edu.ucla.wise.client.save_anno_user</servlet-class>
+		<servlet-class>edu.ucla.wise.client.AnonUserSaver</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>consent_record</display-name>
 		<servlet-name>consent_record</servlet-name>
-		<servlet-class>edu.ucla.wise.client.consent_record</servlet-class>
+		<servlet-class>edu.ucla.wise.client.ConsentHandler</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>view_results</display-name>
 		<servlet-name>view_results</servlet-name>
-		<servlet-class>edu.ucla.wise.client.view_results</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyResultViewer</servlet-class>
 	</servlet>
 
 
 	<servlet>
 		<display-name>view_open_results</display-name>
 		<servlet-name>view_open_results</servlet-name>
-		<servlet-class>edu.ucla.wise.client.view_open_results</servlet-class>
+		<servlet-class>edu.ucla.wise.client.OpenQuesSummaryReporter</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>declineNOW</display-name>
 		<servlet-name>declineNOW</servlet-name>
-		<servlet-class>edu.ucla.wise.client.declineNOW</servlet-class>
-	</servlet>
-
-	<servlet>
-		<display-name>wise_frame</display-name>
-		<servlet-name>wise_frame</servlet-name>
-		<servlet-class>edu.ucla.wise.client.wise_frame</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyDecliner</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>welcome</display-name>
 		<servlet-name>welcome_generate</servlet-name>
-		<servlet-class>edu.ucla.wise.client.welcome_generate</servlet-class>
+		<servlet-class>edu.ucla.wise.client.WelcomePageGenerator</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>thank_you</display-name>
 		<servlet-name>thank_you_generate</servlet-name>
-		<servlet-class>edu.ucla.wise.client.thank_you_generate</servlet-class>
+		<servlet-class>edu.ucla.wise.client.ThankYouGenerator</servlet-class>
 	</servlet>
 		
 	<servlet>
 		<display-name>start</display-name>
 		<servlet-name>triage</servlet-name>
-		<servlet-class>edu.ucla.wise.client.triage</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyTriager</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>progress</display-name>
 		<servlet-name>progress</servlet-name>
-		<servlet-class>edu.ucla.wise.client.progress</servlet-class>
+		<servlet-class>edu.ucla.wise.client.ProgressPrinter</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>view_form</display-name>
 		<servlet-name>view_form</servlet-name>
-		<servlet-class>edu.ucla.wise.client.view_form</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyFormRenderer</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_view_results</display-name>
 		<servlet-name>admin_view_results</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.view_results</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.SurveyResultsViewer</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_view_form</display-name>
 		<servlet-name>admin_view_form</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.view_form</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.FormViewer</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_reload</display-name>
 		<servlet-name>admin_reload</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.reload</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.SurveyReloader</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_survey_loader</display-name>
 		<servlet-name>admin_survey_loader</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.survey_loader</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.LoadSurvey</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_survey_health_loader</display-name>
 		<servlet-name>admin_survey_health_loader</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.survey_health_loader</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.SurveyHealthLoader</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_preface_loader</display-name>
 		<servlet-name>admin_preface_loader</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.preface_loader</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.PrefaceLoader</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_survey_update</display-name>
 		<servlet-name>admin_survey_update</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.survey_update</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.SurveyUpdater</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>admin_print_survey</display-name>
 		<servlet-name>admin_print_survey</servlet-name>
-		<servlet-class>edu.ucla.wise.client.admin.print_survey</servlet-class>
+		<servlet-class>edu.ucla.wise.client.admin.SurveyPrinter</servlet-class>
 	</servlet>
 
 	<servlet>
@@ -169,31 +163,31 @@
 	<servlet>
 		<display-name>print_study_space</display-name>
 		<servlet-name>print_study_space</servlet-name>
-		<servlet-class>edu.ucla.wise.client.print_study_space</servlet-class>
+		<servlet-class>edu.ucla.wise.client.StudySpacePrinter</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>readform</display-name>
 		<servlet-name>readform</servlet-name>
-		<servlet-class>edu.ucla.wise.client.readform</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyUserInputHandler</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>consent_generate</display-name>
 		<servlet-name>consent_generate</servlet-name>
-		<servlet-class>edu.ucla.wise.client.consent_generate</servlet-class>
+		<servlet-class>edu.ucla.wise.client.ConsentFormGenerator</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>survey</display-name>
 		<servlet-name>begin</servlet-name>
-		<servlet-class>edu.ucla.wise.client.begin</servlet-class>
+		<servlet-class>edu.ucla.wise.client.BeginSurvey</servlet-class>
 	</servlet>
 
 	<servlet>
 		<display-name>index</display-name>
 		<servlet-name>index</servlet-name>
-		<servlet-class>edu.ucla.wise.client.index</servlet-class>
+		<servlet-class>edu.ucla.wise.client.SurveyIndexer</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -207,18 +201,11 @@
 		<servlet-name>interview_logout</servlet-name>
 		<servlet-class>edu.ucla.wise.client.interview.interview_logout</servlet-class>
 	</servlet>
-	
-	
-	<servlet>
-		<display-name>wise_outer_frame</display-name>
-		<servlet-name>wise_outer_frame</servlet-name>
-		<servlet-class>edu.ucla.wise.client.wise_outer_frame</servlet-class>
-	</servlet>
 
 	<servlet>
 		<display-name>consent_decline</display-name>
 		<servlet-name>consent_decline</servlet-name>
-		<servlet-class>edu.ucla.wise.client.consent_decline</servlet-class>
+		<servlet-class>edu.ucla.wise.client.ConsentDeclineHandler</servlet-class>
 	</servlet>
 		<servlet-mapping>
 		<servlet-name>consent_decline</servlet-name>

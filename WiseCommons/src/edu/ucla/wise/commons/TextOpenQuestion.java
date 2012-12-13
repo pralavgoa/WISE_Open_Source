@@ -47,7 +47,7 @@ public class TextOpenQuestion extends OpenQuestion {
 	    }
 
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - TEXT OPEN QUESTION: " + e.toString(), null);
 	    return;
 	}

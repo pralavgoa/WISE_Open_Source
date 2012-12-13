@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.ucla.wise.commons.AdminInfo;
 import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  Direct the user coming from email URL or interviewers to appropriate next step or page
@@ -23,6 +24,7 @@ import edu.ucla.wise.commons.WISEApplication;
 public class AdminTest extends HttpServlet {
 	static final long serialVersionUID = 1000;
 
+	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
@@ -42,8 +44,12 @@ public class AdminTest extends HttpServlet {
 					+ initErr
 					+ "</td></tr>"
 					+ "</table></center></body></html>");
-			WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
-					null);// should write to file if no email
+			WISELogger.logInfo("WISE Surveyor Init Error: " + initErr);// should
+																		// write
+																		// to
+																		// file
+																		// if no
+																		// email
 			return;
 		}
 
@@ -88,7 +94,7 @@ public class AdminTest extends HttpServlet {
 			e.printStackTrace(pw);
 			initError += sw.toString(); // get the new string out of the
 			// StringWriter
-			WISEApplication.log_error("Error in begin_test:" + initError, e);
+			WISELogger.logError("Error in begin_test:" + initError, e);
 		}
 
 		out.println("<HTML><HEAD><TITLE>Begin Page</TITLE>"

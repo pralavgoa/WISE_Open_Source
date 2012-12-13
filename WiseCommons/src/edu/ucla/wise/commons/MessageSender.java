@@ -35,8 +35,8 @@ public class MessageSender {
 	    // //WISE_Application knows how to look up passwords
 	    session = WISEApplication.get_mailSession(null);
 	} catch (Exception e) {
-	    WISEApplication
-		    .log_error(
+			WISELogger
+					.logError(
 			    "WISE Message_Sender can't get authenticated email session: ",
 			    e);
 	}
@@ -111,7 +111,7 @@ public class MessageSender {
 	    // send message and return the result
 	    outputString = mailing_process(mMessage);
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "\r\nWISE - MESSAGE SENDER on email message: " + message
 			    + ".\r\n Full error: " + e.toString(), e);
 	}
@@ -141,7 +141,7 @@ public class MessageSender {
 	    }
 
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE EMAIL - MESSAGE SENDER - SEND REMINDER: "
 			    + e.toString(), null);
 	}
@@ -158,12 +158,12 @@ public class MessageSender {
 
 	try {
 	    if (session == null) {
-		WISEApplication.log_info("Session is null!!");
+				WISELogger.logInfo("Session is null!!");
 	    }
 	    Transport tr = session.getTransport("smtp");
 
 	    if (tr == null) {
-		WISEApplication.log_info("tr is null!!");
+				WISELogger.logInfo("tr is null!!");
 	    }
 
 	    String MailHost = null;
@@ -177,11 +177,11 @@ public class MessageSender {
 	    MailHost = WISEApplication.sharedProps.getString("email.host");
 	    tr.connect(MailHost, user, pass);
 	    if ((MailHost == null) || (user == null) || (pass == null)) {
-		WISEApplication.log_info("MailHost or user or pass is null");
+				WISELogger.logInfo("MailHost or user or pass is null");
 	    }
 	    msg.saveChanges(); // don't forget this
 	    if (msg.getAllRecipients() == null) {
-		WISEApplication.log_info("Get All Recepients is null");
+				WISELogger.logInfo("Get All Recepients is null");
 	    }
 	    tr.sendMessage(msg, msg.getAllRecipients());
 	    tr.close();
@@ -190,14 +190,14 @@ public class MessageSender {
 	}
 
 	catch (AuthenticationFailedException e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "Message_Sender - Authentication failed. From string: "
 			    + from_str + "; Reply: " + reply_str + ". \n"
 			    + e.toString(), e);
 	    mailing_result = "Authentication process failed";
 	    return mailing_result;
 	} catch (SendFailedException e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "Message_Sender - Invalid email address. " + e.toString(),
 		    e);
 	    mailing_result = "Email address is invalid.";
@@ -205,7 +205,7 @@ public class MessageSender {
 	}
 
 	catch (MethodNotSupportedException e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "Message_Sender - Unsupported message type. "
 			    + e.toString(), e);
 	    mailing_result = "Message is not supported.";
@@ -213,8 +213,7 @@ public class MessageSender {
 	}
 
 	catch (Exception e) {
-	    WISEApplication
-		    .log_error(
+			WISELogger.logError(
 			    "Message_Sender - mailing_process failure: "
 				    + e.toString(), e);
 	    mailing_result = "Email failed (null pointer error): "

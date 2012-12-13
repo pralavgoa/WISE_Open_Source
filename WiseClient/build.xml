@@ -19,7 +19,11 @@
 		</javac>
 	</target>
 	
-	<target name="war">
+	<target name="copyjars">
+		<copy file="../WiseCommons/dist/WiseCommons.jar" todir="WebContent/WEB-INF/lib" />
+	</target>
+	
+	<target name="war" depends="copyjars">
 		<war destfile="dist/WiseClient.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent"/>
 			<lib dir="WebContent/WEB-INF/lib"/>

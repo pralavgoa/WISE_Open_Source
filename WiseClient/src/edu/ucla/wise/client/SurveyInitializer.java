@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import edu.ucla.wise.commons.Interviewer;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  Set up session for user to begin completing survey 
@@ -22,7 +22,8 @@ import edu.ucla.wise.commons.WISEApplication;
 public class SurveyInitializer extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	PrintWriter out;
@@ -44,7 +45,7 @@ public class SurveyInitializer extends HttpServlet {
 		    + initErr
 		    + "</td></tr>"
 		    + "</table></center></body></html>");
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+	    WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should write to file if no email
 	    return;
 	}

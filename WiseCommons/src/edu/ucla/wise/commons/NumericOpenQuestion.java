@@ -55,7 +55,7 @@ public class NumericOpenQuestion extends OpenQuestion {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - NUMERIC OPEN QUESTION: " + e.toString(), null);
 	    return;
 	}

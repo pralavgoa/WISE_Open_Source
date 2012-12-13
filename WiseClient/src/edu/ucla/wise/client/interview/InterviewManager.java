@@ -10,9 +10,9 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
-import edu.ucla.wise.commons.AdminInfo;
 import edu.ucla.wise.commons.Interviewer;
 import edu.ucla.wise.commons.StudySpace;
+import edu.ucla.wise.commons.WISELogger;
 
 /**
  * This class represents functionality around Interviewer. For. ex.
@@ -61,7 +61,7 @@ public class InterviewManager {
 	    if (rs.next())
 		id = Integer.toString(rs.getInt(1) + 1);
 	} catch (SQLException e) {
-	    AdminInfo.log_error("GET NEW INTERVIEWER ID:" + e.toString(), e);
+			WISELogger.logError("GET NEW INTERVIEWER ID:" + e.toString(), e);
 	    log.error("SQL Error getting new ID", e);
 	} finally {
 	    if (statement != null) {
@@ -121,7 +121,7 @@ public class InterviewManager {
 		returnId = rs.getString(1);
 
 	} catch (SQLException e) {
-	    AdminInfo.log_error("Add interviewer ID:" + e.toString(), e);
+			WISELogger.logError("Add interviewer ID:" + e.toString(), e);
 	    log.error("SQL Error adding new ID", e);
 	    return null;
 	} finally {
@@ -167,7 +167,7 @@ public class InterviewManager {
 	    statement.execute(sql);
 
 	} catch (SQLException e) {
-	    AdminInfo.log_error("GET NEW INTERVIEWER ID:" + e.toString(), e);
+			WISELogger.logError("GET NEW INTERVIEWER ID:" + e.toString(), e);
 	    log.error("SQL Error updating new ID", e);
 	    return null;
 	} finally {
@@ -225,7 +225,7 @@ public class InterviewManager {
 	    }
 
 	} catch (SQLException e) {
-	    AdminInfo.log_error("GET NEW INTERVIEWER ID:" + e.toString(), e);
+			WISELogger.logError("GET NEW INTERVIEWER ID:" + e.toString(), e);
 	    log.error("SQL Error getting new ID", e);
 	    return null;
 	} finally {

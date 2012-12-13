@@ -3,7 +3,6 @@ package edu.ucla.wise.commons;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.math.BigInteger;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -15,19 +14,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
-
 // Class to represent common elements for a given installation of the wise surveyor or admin java application
 // Never instantiated; Handles most interfaces to the file system
 
-/**
- * @author mrao
- * @author dbell
- * @author ssakdeo
- */
 public class WISEApplication {
-
-    static Logger log = Logger.getLogger(WISEApplication.class);
 
     public static String rootURL;
     // Commenting these out and moving them to Surveyor Class
@@ -46,7 +36,7 @@ public class WISEApplication {
     // public static
     public static java.util.Hashtable<String, SurveyorApplication> AppInstanceTbl = new java.util.Hashtable<String, SurveyorApplication>();
 
-    private static final String localPropPath = "localwise";
+    private static final String localPropPath = "parameters/localwise";
     public static ResourceBundle localProps = null;
 
     public static ResourceBundle sharedProps = null;
@@ -91,19 +81,13 @@ public class WISEApplication {
 	String userName = null;
 	String password = null;
 
-	public VarAuthenticator() {
-	    super();
-	    userName = sharedProps.getString("mail.username");
-	    password = sharedProps.getString("mail.password");
-	    System.out.println(userName + "/" + password);
-	}
-
 	public VarAuthenticator(String uName, String pword) {
 	    super();
 	    userName = uName;
 	    password = pword;
 	}
 
+	@Override
 	protected PasswordAuthentication getPasswordAuthentication() {
 	    return new PasswordAuthentication(userName, password);
 	}
@@ -132,7 +116,7 @@ public class WISEApplication {
 	    // loading shared properties file
 	    sharedProps = ResourceBundle.getBundle(sharedPropPath);
 	} catch (Exception e) {
-	    log.error("WISE Application initialization Error: " + e);
+			WISELogger.logError("WISE Application initialization Error: ", e);
 	    return e.toString();
 	}
 
@@ -155,7 +139,7 @@ public class WISEApplication {
 	// images_path = sharedProps.getProperty("wise.images_path");
 	shared_files_link = localProps
 		.getString("default.sharedFiles_linkName");
-	log_info("images_path read is [" + images_path + "]");
+		WISELogger.logInfo("images_path read is [" + images_path + "]");
 	// WISE_Application.shared_file_url = rootURL +
 	// WISE_Application.ApplicationName + "/" +
 	// localProps.getProperty("default.sharedFiles_linkName") + "/";
@@ -179,7 +163,7 @@ public class WISEApplication {
 	    // use
 	    // null
 	} catch (Exception e) {
-	    log.error("WISE Application initialization Error: " + e);
+			WISELogger.logError("WISE Application initialization Error: ", e);
 	    return e.toString();
 	}
 	if (mail_session == null)
@@ -219,7 +203,8 @@ public class WISEApplication {
 	    // Send message
 	    Transport.send(message);
 	} catch (Exception e) {
-	    log_error("WISE_Application - SEND_EMAIL error: " + "\n" + body, e);
+			WISELogger.logError("WISE_Application - SEND_EMAIL error: " + "\n"
+					+ body, e);
 	}
     }
 
@@ -229,73 +214,6 @@ public class WISEApplication {
      * the {@link WISEApplication} class. But proper messagebody and exception
      * should help track where the error went wrong.
      */
-    public static void log_error(String body, Exception e) {
-
-	log.error(body, e);
-    }
-
-    public static void log_info(String body) {
-	log.info(body);
-    }
-    
-    public static void log_debug(String body){
-    	log.debug(body);
-    }
-
-    /**
-     * decoding - convert character-formatted ID to be the digit-formatted *
-     * TOGGLE NAME OF THIS FUNCTION to move to production mode
-     */
-    public static String decode(String char_id) {
-	String result = new String();
-	int sum = 0;
-	for (int i = char_id.length() - 1; i >= 0; i--) {
-	    char c = char_id.charAt(i);
-	    int remainder = (int) c - 65;
-	    sum = sum * 26 + remainder;
-	}
-
-	sum = sum - 97654;
-	int remain = sum % 31;
-	if (remain == 0) {
-	    sum = sum / 31;
-	    result = Integer.toString(sum);
-	} else {
-	    result = "invalid";
-	}
-	return result;
-    }
-
-    public static String decode_test(String char_id) {
-	return char_id;
-    }
-
-    /**
-     * encoding - convert digit-formatted ID to be the character-formatted
-     * TOGGLE NAME OF THIS FUNCTION to move to production mode
-     */
-    public static String encode(String user_id) {
-	int base_numb = Integer.parseInt(user_id) * 31 + 97654;
-	String s1 = Integer.toString(base_numb);
-	String s2 = Integer.toString(26);
-	BigInteger b1 = new BigInteger(s1);
-	BigInteger b2 = new BigInteger(s2);
-
-	int counter = 0;
-	String char_id = new String();
-	while (counter < 5) {
-	    BigInteger[] bs = b1.divideAndRemainder(b2);
-	    b1 = bs[0];
-	    int encode_value = bs[1].intValue() + 65;
-	    char_id = char_id + (new Character((char) encode_value).toString());
-	    counter++;
-	}
-	return char_id;
-    }
-
-    public static String encode_test(String user_id) {
-	return user_id;
-    }
 
     // TODO not used
     // public static String read_localProp(String prop_name) {

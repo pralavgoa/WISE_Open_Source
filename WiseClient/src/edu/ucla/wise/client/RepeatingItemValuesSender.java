@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
 import edu.ucla.wise.commons.UserDBConnection;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 //Will handle retrieving/saving survey page values sent through AJAX calls
 //currently implemented only for the repeating item set
@@ -20,7 +20,8 @@ public class RepeatingItemValuesSender extends HttpServlet {
 
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 
 	// prepare for writing
@@ -44,7 +45,7 @@ public class RepeatingItemValuesSender extends HttpServlet {
 		    + initErr
 		    + "</td></tr>"
 		    + "</table></center></body></html>");
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+	    WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should write to file if no email
 	    return;
 	}

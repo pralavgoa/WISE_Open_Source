@@ -35,7 +35,7 @@ public abstract class PageItem {
 			|| nname.equalsIgnoreCase("Directive")
 			|| nname.equalsIgnoreCase("Repeating_Item_Set");
 	} catch (Exception e) {
-	    WISEApplication.log_error("PAGE ITEM test attempt failed for " + n
+	    WISELogger.logError("PAGE ITEM test attempt failed for " + n
 		    + ": " + e, null);
 	}
 	return answer;
@@ -55,27 +55,27 @@ public abstract class PageItem {
 		for (int j = 0; j < nodelist2.getLength(); j++) {
 		    if (nodelist2.item(j).getNodeName()
 			    .equalsIgnoreCase("Numeric_Open_Response"))
-			item = (PageItem) new NumericOpenQuestion(n);
+			item = new NumericOpenQuestion(n);
 		    else if (nodelist2.item(j).getNodeName()
 			    .equalsIgnoreCase("Text_Open_Response"))
-			item = (PageItem) new TextOpenQuestion(n);
+			item = new TextOpenQuestion(n);
 		}
 	    } else if (nname.equalsIgnoreCase("Closed_Question")) {
-		item = (PageItem) new ClosedQuestion(n);
+		item = new ClosedQuestion(n);
 	    } else if (nname.equalsIgnoreCase("Question_Block")) {
 		NodeList nodelist2 = n.getChildNodes();
 		for (int j = 0; j < nodelist2.getLength(); j++)
 		    if (nodelist2.item(j).getNodeName()
 			    .equalsIgnoreCase("Subject_Set_Ref"))
-			item = (PageItem) new QuestionBlockForSubjectSet(n);
-		item = (PageItem) new QuestionBlock(n);
+			item = new QuestionBlockForSubjectSet(n);
+		item = new QuestionBlock(n);
 	    } else if (nname.equalsIgnoreCase("Directive")) {
-		item = (PageItem) new Directive(n);
+		item = new Directive(n);
 	    } else if (nname.equalsIgnoreCase("Repeating_Item_Set")) {
-		item = (PageItem) new RepeatingItemSet(n);
+		item = new RepeatingItemSet(n);
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("PAGE ITEM Creation attempt failed for "
+	    WISELogger.logError("PAGE ITEM Creation attempt failed for "
 		    + nname + ": " + e, null);
 	}
 	return item;
@@ -101,8 +101,7 @@ public abstract class PageItem {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication
-		    .log_error("PAGE ITEM ROOT CONSTRUCTOR: " + e, null);
+			WISELogger.logError("PAGE ITEM ROOT CONSTRUCTOR: " + e, null);
 	    return;
 	}
     }
@@ -113,7 +112,7 @@ public abstract class PageItem {
 	try {
 	    throw new Exception("knitRefs called on " + item_type + " " + name);
 	} catch (Exception e) {
-	    WISEApplication.log_error("Unimplemented Page_item method: " + e,
+	    WISELogger.logError("Unimplemented Page_item method: " + e,
 		    null);
 	}
     }
@@ -123,7 +122,7 @@ public abstract class PageItem {
 	    throw new Exception("listFieldNames() called on " + item_type + " "
 		    + name);
 	} catch (Exception e) {
-	    WISEApplication.log_error("Unimplemented Page_item method: " + e,
+	    WISELogger.logError("Unimplemented Page_item method: " + e,
 		    null);
 	}
 	return null;
@@ -172,7 +171,7 @@ public abstract class PageItem {
 	try {
 	    throw new Exception("read_form called on " + item_type + " " + name);
 	} catch (Exception e) {
-	    WISEApplication.log_error("Unimplemented Page_item method: " + e,
+	    WISELogger.logError("Unimplemented Page_item method: " + e,
 		    null);
 	}
 	return null;
@@ -243,7 +242,8 @@ public abstract class PageItem {
     public abstract int countFields();
 
     /** prints out the name of the item */
-    public String toString() {
+    @Override
+	public String toString() {
 	String s = "Name: " + name + "<br>";
 	return s;
     }

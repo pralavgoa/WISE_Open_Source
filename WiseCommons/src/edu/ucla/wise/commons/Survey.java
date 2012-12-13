@@ -222,7 +222,7 @@ public class Survey {
 	    }
 
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - SURVEY parse error: " + e.toString() + "\n" + id
 			    + "\n" + this.toString(), null);
 
@@ -300,7 +300,7 @@ public class Survey {
 	    s += "</table>";
 	    s += "</td></tr></table>";
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - SURVEY - PRINT PROGRESS WITHOUT LINK: "
 			    + e.toString() + " --> " + currentPage.toString()
 			    + ", " + completed_pages.toString(), null);
@@ -367,7 +367,7 @@ public class Survey {
 	    s += "</table>";
 	    s += "</td></tr></table>";
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - SURVEY - PRINT PROGRESS WITH LINKS: "
 			    + e.toString() + " --> " + currentPage.toString(),
 		    null);

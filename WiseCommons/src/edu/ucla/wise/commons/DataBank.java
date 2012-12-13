@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-//import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 
 import edu.ucla.wise.commons.InviteeMetadata.Values;
@@ -68,7 +66,7 @@ public class DataBank {
 	try {
 	    DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 	} catch (Exception e) {
-	    WISEApplication.log_error("Data_Bank init Error: " + e, e);
+			WISELogger.logError("Data_Bank init Error: " + e, e);
 	}
     }
 
@@ -106,7 +104,7 @@ public class DataBank {
 	    stmt.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "Data_Bank user creation error:" + e.toString(), e);
 	}
     }
@@ -140,7 +138,7 @@ public class DataBank {
 	    stmt.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "Data_Bank user creation error:" + e.toString(), e);
 	}
 	return theUser;
@@ -165,7 +163,7 @@ public class DataBank {
 		.get_repeating_item_sets();
 
 	for (RepeatingItemSet repeat_set_instance : repeating_item_sets) {
-	    System.out.println("Repeating table creation");
+			// System.out.println("Repeating table creation");
 	    // generate a table for this instance
 	    create_repeating_set_table(repeat_set_instance);
 	}
@@ -296,7 +294,7 @@ public class DataBank {
 	    stmt.close();
 	    stmt_m.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "SURVEY - CREATE TABLE: " + e.toString(), null);
 	}
 	return;
@@ -311,11 +309,11 @@ public class DataBank {
 	String[] fieldList = i_repeating_set.listFieldNames();
 
 	for (String field_name : fieldList) {
-	    System.out.println("Create repeat set field list:" + field_name);
+			// System.out.println("Create repeat set field list:" + field_name);
 	}
 	char[] valTypeList = i_repeating_set.getValueTypeList();
 	for (char val_type : valTypeList) {
-	    System.out.println("Create repeat set field list:" + val_type);
+			// System.out.println("Create repeat set field list:" + val_type);
 	}
 	for (int i = 0; i < fieldList.length; i++) {
 	    if (valTypeList[i] == textValueTypeFlag)
@@ -335,7 +333,7 @@ public class DataBank {
 	    sql_statement = "CREATE TABLE "
 		    + "repeat_set_"
 		    + table_name
-		    + " (instance int(6) not null auto_increment, invitee int(6) not null,";
+					+ " (instance int(6) not null auto_increment, invitee int(6) not null, instance_name TEXT null, ";
 	    sql_statement += sql_field_list;
 	    sql_statement += "PRIMARY KEY (instance),";
 	    sql_statement += "FOREIGN KEY (invitee) REFERENCES invitee(id) ON DELETE CASCADE";
@@ -343,7 +341,7 @@ public class DataBank {
 	    stmt.execute(sql_statement);
 
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "Repeating Set - CREATE TABLE: " + e.toString(), null);
 	}
 	return;
@@ -389,7 +387,7 @@ public class DataBank {
 	    stmt_n.close();
 
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "SURVEY - UPDATE ARCHIVE DATE: " + e.toString(), null);
 	}
 	return;
@@ -442,7 +440,7 @@ public class DataBank {
 
 	    }
 	} catch(SQLException e){
-	    WISEApplication.log_error("Error while archiving survey", e);
+			WISELogger.logError("Error while archiving survey", e);
 	}
 	return archiveString;
     }
@@ -520,7 +518,7 @@ public class DataBank {
 	    stmt_m.close();
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "SURVEY - ARCHIVE DATA TABLE: " + e.toString(), null);
 	}
 	return archive_str;
@@ -596,7 +594,7 @@ public class DataBank {
 	    sql = "insert into " + survey.id + MainTableExtension
 		    + " (invitee, status,";
 	    for (i = 0; i < common_columns.size(); i++) {
-		sql += (String) common_columns.get(i);
+		sql += common_columns.get(i);
 		if (i != (common_columns.size() - 1))
 		    sql += ", ";
 	    }
@@ -605,7 +603,7 @@ public class DataBank {
 		    + survey.id + "_arch_" + archive_date + ".status, ";
 	    for (i = 0; i < common_columns.size(); i++) {
 		sql += survey.id + "_arch_" + archive_date + ".";
-		sql += (String) common_columns.get(i);
+		sql += common_columns.get(i);
 		if (i != (common_columns.size() - 1))
 		    sql += ", ";
 	    }
@@ -615,7 +613,7 @@ public class DataBank {
 	    stmt.close();
 
 	} catch (Exception e) {
-	    WISEApplication.log_error("SURVEY - APPEND DATA: " + e.toString(),
+			WISELogger.logError("SURVEY - APPEND DATA: " + e.toString(),
 		    null);
 	}
 	return;
@@ -656,7 +654,8 @@ public class DataBank {
 		    + " successfully dropped & old survey files archived.</p>"
 		    + useResult;
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger
+					.logError(
 		    "SURVEY - DROP Table error: " + e.toString(), e);
 	    return "<p align=center>ERROR deleting survey " + survey.id
 		    + ".</p>" + useResult
@@ -699,7 +698,8 @@ public class DataBank {
 	    + survey.id
 	    + " successfully closed archived. Discuss with WISE database Admin if you need access to old data.</p>";
 	} catch (Exception e) {
-	    WISEApplication.log_error("Error - Closing PRODUCTION SURVEY: "
+			WISELogger.logError(
+					"Error - Closing PRODUCTION SURVEY: "
 		    + e.toString(), e);
 	    return "<p align=center>ERROR Closing survey " + survey.id
 		    + ".</p>"
@@ -737,7 +737,7 @@ public class DataBank {
 	    return "<p align=center>Submitted data for survey " + survey.id
 		    + " successfully cleared from database.</p>" + useResult;
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "Error clearing survey data : " + e.toString(), e);
 	    return "<p align=center>ERROR clearing data for survey "
 	    + survey.id + " from database.</p>" + useResult
@@ -784,7 +784,7 @@ public class DataBank {
 	    + " successfully cleared "
 	    + "(tables survey_user_state, survey_message_use, page_submit, update_trail, consent_response & for interviews).</p>";
 	} catch (Exception e) {
-	    WISEApplication.log_error(e.toString(), e);
+			WISELogger.logError(e.toString(), e);
 	    return "<p align=center>ERROR clearing Associated use data for survey "
 	    + survey.id
 	    + " from "
@@ -1010,7 +1010,7 @@ public class DataBank {
 
 		Message invMsg = msg_seq.get_type_message("invite");
 		if (invMsg == null) {
-		    WISEApplication.log_error(
+					WISELogger.logError(
 			    "Failed to get the initial invitation", null);
 		    return "Failed";
 		}
@@ -1059,13 +1059,13 @@ public class DataBank {
 		    statement2.execute(sql3);
 		} else {
 		    outputStr += (" --> ERROR SENDING EMAIL (" + email_response + ")");
-		    WISEApplication.log_error(
+					WISELogger.logError(
 			    "Error sending invitation email to invitee = "
 				    + inviteeId, null);
 		}// if
 	    }// while
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "Pending initial invite ERROR: " + e.toString(), null);
 	} finally {
 	    if (conn != null) {
@@ -1121,14 +1121,15 @@ public class DataBank {
 		    statement2.execute(updQry + iid);
 		} else {
 		    outputStr += (" --> ERROR SENDING EMAIL (" + email_response + ")");
-		    WISEApplication.log_error(
+					WISELogger.logError(
 			    "Error sending invitation email to invitee = "
 				    + iid, null);
 		}
 	    }// while
 	} catch (Exception e) {
 	    e.printStackTrace();
-	    WISEApplication.log_error(
+			WISELogger
+					.logError(
 		    "Reminder sending ERROR: " + e.toString(), null);
 	}
 	return outputStr;
@@ -1165,7 +1166,7 @@ public class DataBank {
 	    stmt.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "WISE - CLOSED QUESTION RENDER RESULTS EXCLUSIVE: "
 			    + e.toString(), e);
 	}
@@ -1517,7 +1518,7 @@ public class DataBank {
 		String column_name = rs.getString("Field");
 		if (column_name.equalsIgnoreCase("id"))
 		    continue;
-		String column_val = (String) requestParameters.get(column_name);
+		String column_val = requestParameters.get(column_name);
 		String column_type = rs.getString("Type");
 		resStr += "<tr><td width=400 align=left>" + column_name;
 		// check for required field values
@@ -1582,7 +1583,7 @@ public class DataBank {
 			+ sql_val.substring(0, sql_val.length() - 1) + ")";
 		stmt.execute(sql);
 		resStr += "<tr><td align=center>New invitee "
-			+ (String) requestParameters.get("last_name")
+			+ requestParameters.get("last_name")
 			+ " has been added</td></tr>";
 	    }
 	    // display the submit button
@@ -1599,8 +1600,8 @@ public class DataBank {
 	    }
 
 	} catch (Exception e) {
-	    AdminInfo
-	    .log_error("WISE ADMIN - LOAD INVITEE: " + e.toString(), e);
+			WISELogger
+					.logError("WISE ADMIN - LOAD INVITEE: " + e.toString(), e);
 	    resStr += "<p>Error: " + e.toString() + "</p>";
 	    return resStr;
 	} finally {

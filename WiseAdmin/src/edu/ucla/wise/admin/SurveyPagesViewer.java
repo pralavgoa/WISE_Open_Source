@@ -20,6 +20,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 
 import edu.ucla.wise.commons.AdminInfo;
+import edu.ucla.wise.commons.WISELogger;
+
 
 /*
  prints an overview list of the pages in a survey
@@ -28,7 +30,8 @@ import edu.ucla.wise.commons.AdminInfo;
 public class SurveyPagesViewer extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	public void service(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 
 	response.setContentType("text/html");
@@ -49,7 +52,7 @@ public class SurveyPagesViewer extends HttpServlet {
 	AdminInfo admin_info = (AdminInfo) session.getAttribute("ADMIN_INFO");
 
 	if (survey_name == null || admin_info == null) {
-	    AdminInfo.log_error(
+			WISELogger.logError(
 		    "Wise Admin - XSLT View Error: can't get the admin info",
 		    null);
 	    return;
@@ -86,7 +89,7 @@ public class SurveyPagesViewer extends HttpServlet {
 
 	} catch (Exception e) {
 	    System.out.println("  " + e.getMessage());
-	    AdminInfo.log_error(
+			WISELogger.logError(
 		    "Wise Admin - XSLT View Error: " + e.getMessage(), e);
 	}
     }

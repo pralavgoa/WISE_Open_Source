@@ -160,7 +160,7 @@ public class Page {
 	    // +" in survey "+survey.id+" in ss "+survey.study_space.location);
 	    System.out.println("End of one constructor call");
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - survey parse failure at PAGE ["
+	    WISELogger.logError("WISE - survey parse failure at PAGE ["
 		    + id + "] " + e.toString() + "\n" + this.toString(), null);
 	    return;
 	}
@@ -464,7 +464,7 @@ public class Page {
 		stmt.close();
 		conn.close();
 	    } catch (Exception e) {
-		WISEApplication.log_error(
+		WISELogger.logError(
 			"WISE - GET PAGE DONE NUMBER: " + e.toString(), null);
 	    }
 	    return done_numb;

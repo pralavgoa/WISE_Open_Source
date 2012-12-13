@@ -17,7 +17,7 @@ import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.Survey;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 /*
  Create a summary report for each individual open question 
@@ -26,7 +26,8 @@ import edu.ucla.wise.commons.WISEApplication;
 public class OpenQuesSummaryReporter extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare to write
 	PrintWriter out;
@@ -157,7 +158,7 @@ public class OpenQuesSummaryReporter extends HttpServlet {
 	    stmt.close();
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - VIEW OPEN RESULT: " + e.toString(), null);
 	    return;
 	}

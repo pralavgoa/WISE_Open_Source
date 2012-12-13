@@ -58,13 +58,14 @@ public class QuestionBlockForSubjectSet extends QuestionBlock {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - QUESTION BLOCK for subjectset: "
+	    WISELogger.logError("WISE - QUESTION BLOCK for subjectset: "
 		    + e.toString(), null);
 	    return;
 	}
     }
 
-    public void knitRefs(Survey mySurvey) {
+    @Override
+	public void knitRefs(Survey mySurvey) {
 	super.knitRefs(mySurvey);
 	try {
 	    if (subjectSet_ID != null) {
@@ -83,7 +84,7 @@ public class QuestionBlockForSubjectSet extends QuestionBlock {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("Failed to resolve subjectset: "
+	    WISELogger.logError("Failed to resolve subjectset: "
 		    + subjectSet_ID + " --> " + e.toString(), null);
 	    return;
 	}
@@ -163,7 +164,8 @@ public class QuestionBlockForSubjectSet extends QuestionBlock {
     // return "";
     // }
 
-    public Hashtable read_form(Hashtable params) {
+    @Override
+	public Hashtable read_form(Hashtable params) {
 	Hashtable answers = super.read_form(params);
 	answers.put("__SubjectSet_ID__", subjectSet_ID);
 	return answers;
@@ -280,7 +282,8 @@ public class QuestionBlockForSubjectSet extends QuestionBlock {
     }
 
     /** render RESULTS for a subject set question block */
-    public String render_results(Page pg, DataBank db, String whereclause,
+    @Override
+	public String render_results(Page pg, DataBank db, String whereclause,
 	    Hashtable data) {
 
 	int levels = Integer.valueOf(response_set.levels).intValue();
@@ -399,8 +402,7 @@ public class QuestionBlockForSubjectSet extends QuestionBlock {
 		stmt.close();
 		conn.close();
 	    } catch (Exception e) {
-		WISEApplication
-			.log_error(
+				WISELogger.logError(
 				"WISE - QUESTION BLOCK RENDER RESULTS: "
 					+ e.toString(), e);
 		return "";
@@ -552,7 +554,8 @@ public class QuestionBlockForSubjectSet extends QuestionBlock {
      */
 
     /** prints out the question block information */
-    public String toString() {
+    @Override
+	public String toString() {
 	String s = "QUESTION BLOCK for subject set<br>";
 	s += super.toString();
 

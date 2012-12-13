@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ucla.wise.commons.AdminInfo;
 import edu.ucla.wise.commons.StudySpace;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.shared.StringEncoderDecoder;
 
 /**
  * @author Ka Cheung Sia A simple servlet to accept a hidden request from LOFTS
@@ -27,6 +27,7 @@ public class CompletionAcceptor extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	PrintWriter out;
@@ -41,8 +42,8 @@ public class CompletionAcceptor extends HttpServlet {
 
 	if (userID != null && surveyID != null & studySpaceID != null) {
 	    AdminInfo.check_init(req.getContextPath());
-	    String user = WISEApplication.decode(userID);
-	    String ss = WISEApplication.decode(studySpaceID);
+			String user = StringEncoderDecoder.decode(userID);
+			String ss = StringEncoderDecoder.decode(studySpaceID);
 	    StudySpace studySpace = StudySpace.get_Space(ss);
 
 	    try {

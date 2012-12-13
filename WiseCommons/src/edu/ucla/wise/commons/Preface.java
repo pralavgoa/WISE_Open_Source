@@ -96,7 +96,7 @@ public class Preface {
 		msg.resolveRef(this);
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - PREFACE load error: " + e.toString(), e);
 	    return;
 	}

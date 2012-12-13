@@ -5,5 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Log4J"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaMail"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySqlConnector"/>
+	<classpathentry kind="lib" path="C:/_GSR_Related/workspace/common_libraries/commons-codec-1.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/_GSR_Related/workspace/common_libraries/commons-codec-1.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

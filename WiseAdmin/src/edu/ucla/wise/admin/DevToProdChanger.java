@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ucla.wise.commons.AdminInfo;
+import edu.ucla.wise.commons.WISELogger;
+
 
 /*
  create web page to select who to invite to what
@@ -24,6 +26,7 @@ public class DevToProdChanger extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		// prepare to write
@@ -79,7 +82,7 @@ public class DevToProdChanger extends HttpServlet {
 			stmt.close();
 			conn.close();
 		} catch (Exception e) {
-			AdminInfo.log_error(
+			WISELogger.logError(
 					"Wise Admin - Dev to Prod Error: " + e.toString(), e);
 			return;
 		}

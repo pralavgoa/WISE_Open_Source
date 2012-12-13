@@ -67,7 +67,7 @@ public class RepeatingItemSet extends PageItem {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - survey parse failure at Repeating Item Set [" + id
 			    + "] " + e.toString() + "\n" + this.toString(),
 		    null);
@@ -225,7 +225,7 @@ public class RepeatingItemSet extends PageItem {
 		repeating_item = new RepeatingItemSet(n);
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("PAGE ITEM Creation attempt failed for "
+	    WISELogger.logError("PAGE ITEM Creation attempt failed for "
 		    + nname + ": " + e, null);
 	}
 	return repeating_item;
@@ -240,7 +240,7 @@ public class RepeatingItemSet extends PageItem {
 	    if (nname != null)
 		answer = nname.equalsIgnoreCase("Repeating_Item_Set");
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "Repeating Item Set test attempt failed for " + n + ": "
 			    + e, null);
 	}

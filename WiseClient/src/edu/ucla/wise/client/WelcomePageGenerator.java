@@ -15,7 +15,7 @@ import edu.ucla.wise.commons.Preface;
 import edu.ucla.wise.commons.StudySpace;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 import edu.ucla.wise.commons.WelcomePage;
 
 /*
@@ -25,7 +25,8 @@ import edu.ucla.wise.commons.WelcomePage;
 public class WelcomePageGenerator extends HttpServlet {
     static final long serialVersionUID = 1000;
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	PrintWriter out;
@@ -55,7 +56,7 @@ public class WelcomePageGenerator extends HttpServlet {
 	    if ((pf.irb_sets.size() > 0 && theUser.irb_id == null)
 		    || theUser.currentSurvey.id == null) {
 		error = "Error: Cannot find your IRB or Survey ID ";
-		WISEApplication.log_error("WISE - WELCOME GENERATE: " + error,
+		WISELogger.logError("WISE - WELCOME GENERATE: " + error,
 			null);
 		out.println("<p>" + error + "</p>");
 		return;
@@ -68,7 +69,7 @@ public class WelcomePageGenerator extends HttpServlet {
 			+ theUser.currentSurvey.id
 			+ " and IRB="
 			+ theUser.irb_id;
-		WISEApplication.log_error("WISE - WELCOME GENERATE: " + error,
+		WISELogger.logError("WISE - WELCOME GENERATE: " + error,
 			null);
 		out.println("<p>" + error + "</p>");
 		return;
@@ -166,7 +167,7 @@ public class WelcomePageGenerator extends HttpServlet {
 	}
 
 	if (error != null) {
-	    WISEApplication.log_error("WISE - WELCOME GENERATE: " + error,
+	    WISELogger.logError("WISE - WELCOME GENERATE: " + error,
 		    null);
 	    out.println("<p>" + error + "</p>");
 	}

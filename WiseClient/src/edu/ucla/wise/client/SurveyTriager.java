@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 import edu.ucla.wise.commons.CommonUtils;
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 import edu.ucla.wise.commons.WiseConstants.STATES;
+import edu.ucla.wise.shared.StringEncoderDecoder;
 
 /*
  Direct the user after browser check to appropriate next step or page
@@ -28,7 +29,8 @@ public class SurveyTriager extends HttpServlet {
 		+ "</script></head>" + "<body></body>" + "</html>";
     }
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 	// prepare for writing
 	PrintWriter out;
@@ -57,7 +59,7 @@ public class SurveyTriager extends HttpServlet {
 		    // + "<body text=#000000 bgColor=#ffffcc><center><table>"
 		    + "<tr><td>Error: WISE can't seem to store your identity in the browser. You may have disabled cookies.</td></tr>"
 		    + "</table></center></body></html>");
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE BEGIN - Error: Can't create the user.", null);
 	    return;
 	}
@@ -92,21 +94,21 @@ public class SurveyTriager extends HttpServlet {
 			main_url += "/"
 				+ theUser.currentSurvey.study_space.dir_name
 				+ "/survey?t="
-				+ WISEApplication
-					.encode(theUser.currentSurvey.edu_module)
-				+ "&r=" + WISEApplication.encode(theUser.id);
+								+ StringEncoderDecoder
+										.encode(theUser.currentSurvey.edu_module)
+				+ "&r=" + StringEncoderDecoder.encode(theUser.id);
 		    // otherwise the link will be the URL plus the user ID
 		    else {
 			// Added Study Space ID and Survey ID, was sending just
 			// the UserID earlier
 			main_url = main_url
 				+ "?s="
-				+ WISEApplication.encode(theUser.id)
+				+ StringEncoderDecoder.encode(theUser.id)
 				+ "&si="
 				+ theUser.currentSurvey.id
 				+ "&ss="
-				+ WISEApplication
-					.encode(theUser.currentSurvey.study_space.id);
+								+ StringEncoderDecoder
+										.encode(theUser.currentSurvey.study_space.id);
 		    }
 		}
 		// if the min completers is not set in survey xml, then direct

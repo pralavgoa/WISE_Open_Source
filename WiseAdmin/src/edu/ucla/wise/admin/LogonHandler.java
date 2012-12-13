@@ -26,7 +26,8 @@ public class LogonHandler extends HttpServlet {
     private static final long serialVersionUID = 1L;
     Logger log = Logger.getLogger(this.getClass());
 
-    public void service(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	public void service(HttpServletRequest req, HttpServletResponse res)
 	    throws ServletException, IOException {
 
 	res.setContentType("text/html");
@@ -44,8 +45,10 @@ public class LogonHandler extends HttpServlet {
 	String password = req.getParameter("password");
 	HttpSession session = req.getSession(true);
 
-	// Initialize AdminInfo class (application)
-	AdminInfo.check_init(path);
+		/*
+		 * Pralav - already initialized // Initialize AdminInfo class
+		 * (application) AdminInfo.check_init(path);
+		 */
 
 	// initialize AdminInfo instance and store in session
 	AdminInfo admin_info = new AdminInfo(userName, password);

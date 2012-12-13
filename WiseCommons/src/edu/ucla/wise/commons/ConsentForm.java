@@ -101,7 +101,7 @@ public class ConsentForm {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - CONSENT FORM : ID = " + id
+			WISELogger.logError("WISE - CONSENT FORM : ID = " + id
 		    + "; Preface = " + p.project_name + " --> " + e.toString(),
 		    null);
 	    return;

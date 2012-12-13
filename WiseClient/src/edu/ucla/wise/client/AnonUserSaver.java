@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ucla.wise.commons.MessageSequence;
 import edu.ucla.wise.commons.StudySpace;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.shared.StringEncoderDecoder;
 
 /**
  * Servlet implementation class save_anno_user
@@ -30,7 +30,8 @@ public class AnonUserSaver extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    protected void doGet(HttpServletRequest request,
+    @Override
+	protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	// TODO Auto-generated method stub
     }
@@ -39,7 +40,8 @@ public class AnonUserSaver extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */
-    protected void doPost(HttpServletRequest request,
+    @Override
+	protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 
 	PrintWriter pw = response.getWriter();
@@ -47,7 +49,7 @@ public class AnonUserSaver extends HttpServlet {
 	// get the ecoded study space ID
 	String spaceid_encode = request.getParameter("t");
 	// decode study space ID
-	String spaceid_decode = WISEApplication.decode(spaceid_encode);
+		String spaceid_decode = StringEncoderDecoder.encode(spaceid_encode);
 
 	StudySpace theStudy = StudySpace.get_Space(spaceid_decode);
 
@@ -69,11 +71,11 @@ public class AnonUserSaver extends HttpServlet {
 		msg_seqs[0].id, surveyIdString, " invitee.id in ( " + userId
 			+ " )", false);
 
-	request.setAttribute("msg", WISEApplication.encode(msgSeqId));
+	request.setAttribute("msg", StringEncoderDecoder.encode(msgSeqId));
 	StringBuffer destination = new StringBuffer();
 	destination.append("/WISE/survey").append("?msg=")
-		.append(WISEApplication.encode(msgSeqId))
-		.append("&t=" + WISEApplication.encode(theStudy.id));
+		.append(StringEncoderDecoder.encode(msgSeqId))
+		.append("&t=" + StringEncoderDecoder.encode(theStudy.id));
 	response.sendRedirect(destination.toString());
 
     }

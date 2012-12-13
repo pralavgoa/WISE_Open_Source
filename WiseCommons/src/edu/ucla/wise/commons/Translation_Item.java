@@ -112,7 +112,7 @@ public class Translation_Item {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - Translation Item: ID = " + id
+	    WISELogger.logError("WISE - Translation Item: ID = " + id
 		    + "; Survey = " + s.id + "; Study = " + s.study_space.id
 		    + " --> " + e.toString(), null);
 	    return;

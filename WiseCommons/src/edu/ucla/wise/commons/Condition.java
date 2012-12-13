@@ -15,7 +15,7 @@ public class Condition extends PageItem {
     private Integer int_constant = null;
     private int operatr_int = 0;
     Condition cond, cond2;
-    private StringBuffer js_expression = new StringBuffer("");
+    private final StringBuffer js_expression = new StringBuffer("");
 
     // private Page page;
 
@@ -121,13 +121,15 @@ public class Condition extends PageItem {
 
 	}// end of try
 	catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger
+					.logError(
 		    "WISE - CONDITION parse: " + e.toString(), null);
 	    return;
 	}
     }
 
-    public int countFields() // should never be called
+    @Override
+	public int countFields() // should never be called
     {
 	return 0;
     }
@@ -318,7 +320,8 @@ public class Condition extends PageItem {
 	return list_value;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
 	if (operatr_int < 10) // not a leaf node
 	    return "apply node<br>";
 	else if (pre_field_second.equals(""))

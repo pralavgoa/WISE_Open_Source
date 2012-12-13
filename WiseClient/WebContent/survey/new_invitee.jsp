@@ -13,13 +13,13 @@
 	String surveyId = CommonUtils.base64Decode(surveyId_encode);
 	// get the ecoded study space ID
 	// decode study space ID
-	String spaceid_decode = WISE_Application.decode(spaceid_encode);
+	String spaceid_decode = WISEApplication.decode(spaceid_encode);
 
-	Study_Space theStudy = Study_Space.get_Space(spaceid_decode);
+	StudySpace theStudy = StudySpace.get_Space(spaceid_decode);
 	if (theStudy == null || theStudy.get_Survey(surveyId) == null ) {
-		response.sendRedirect(Surveyor_Application.shared_file_url
+		response.sendRedirect(SurveyorApplication.shared_file_url
 				+ "link_error"
-				+ edu.ucla.wise.commons.Surveyor_Application.html_ext);
+				+ edu.ucla.wise.commons.SurveyorApplication.html_ext);
 		return;
 	}
 %>

@@ -59,7 +59,7 @@ public class ResponseSet {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - RESPONSE SET : ID = " + id
+	    WISELogger.logError("WISE - RESPONSE SET : ID = " + id
 		    + "; Survey = " + s.id + "; Study = " + s.study_space.id
 		    + " --> " + e.toString(), null);
 	    return;

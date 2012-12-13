@@ -58,24 +58,27 @@ public class ClosedQuestion extends Question {
 		    skip_list = new SkipList(nodelist.item(i), this);
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger
+					.logError(
 		    "WISE - CLOSED QUESTION: " + e.toString(), null);
 	    return;
 	}
     }
 
-    public void knitRefs(Survey mySurvey) {
+    @Override
+	public void knitRefs(Survey mySurvey) {
 	try {
 	    response_set = mySurvey.get_response_set(responseSet_ID);
 	    html = make_html();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+			WISELogger.logError(
 		    "WISE - CLOSED QUESTION knitRefs: " + e.toString(), null);
 	}
     }
 
     /** count number of fields/options in the closed question */
-    public int countFields() {
+    @Override
+	public int countFields() {
 	// single selection has only one option
 	if (type.equalsIgnoreCase("Exclusive")
 		|| type.equalsIgnoreCase("single"))
@@ -89,7 +92,8 @@ public class ClosedQuestion extends Question {
     }
 
     // TODO: (impr abstr) save field name list; use for making html
-    public String[] listFieldNames() {
+    @Override
+	public String[] listFieldNames() {
 	int fieldCnt = countFields();
 	String[] fieldNames = new String[fieldCnt];
 	if (fieldCnt == 1)
@@ -302,7 +306,8 @@ public class ClosedQuestion extends Question {
     }
 
     /** print survey for a closed question - used for admin tool: print survey */
-    public String print_survey() {
+    @Override
+	public String print_survey() {
 	String s = "<table cellspacing='0' cellpadding='0' width=100%' border='0'>";
 	s += "<tr><td>";
 	// print out the stem
@@ -889,7 +894,7 @@ public class ClosedQuestion extends Question {
 		stmt.close();
 		conn.close();
 	    } catch (Exception e) {
-		WISEApplication.log_error(
+				WISELogger.logError(
 			"WISE - CLOSED QUESTION RENDER RESULTS MULTISELECT: "
 				+ e.toString(), e);
 		return "";

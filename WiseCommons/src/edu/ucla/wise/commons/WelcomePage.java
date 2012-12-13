@@ -69,7 +69,7 @@ public class WelcomePage {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - WELCOME PAGE : ID = " + id
+	    WISELogger.logError("WISE - WELCOME PAGE : ID = " + id
 		    + "; Preface Project name = " + p.project_name + "; --> "
 		    + e.toString(), null);
 	    return;

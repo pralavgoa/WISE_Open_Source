@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.ucla.wise.commons.SurveyorApplication;
 import edu.ucla.wise.commons.User;
-import edu.ucla.wise.commons.WISEApplication;
+import edu.ucla.wise.commons.WISELogger;
 
 public class BrowserRequestChecker {
 
@@ -31,7 +31,7 @@ public class BrowserRequestChecker {
 		    + initErr
 		    + "</td></tr>"
 		    + "</table></center></body></html>");
-	    WISEApplication.log_error("WISE Surveyor Init Error: " + initErr,
+	    WISELogger.logError("WISE Surveyor Init Error: " + initErr,
 		    null);// should write to file if no email
 	    return false;
 	}

@@ -50,21 +50,24 @@ public class Directive extends PageItem {
 		}
 	    }
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - DIRECTIVE: " + e.toString(),
+			WISELogger.logError("WISE - DIRECTIVE: " + e.toString(),
 		    null);
 	    return;
 	}
     }
 
-    public int countFields() {
+    @Override
+	public int countFields() {
 	return 0;
     }
 
-    public void knitRefs(Survey mySurvey) {
+    @Override
+	public void knitRefs(Survey mySurvey) {
 	html = make_html();
     }
 
-    public String[] listFieldNames() {
+    @Override
+	public String[] listFieldNames() {
 	return new String[0];
     }
 
@@ -82,7 +85,8 @@ public class Directive extends PageItem {
     }
 
     /** print survey for directive item - used for admin tool: print survey */
-    public String print_survey() {
+    @Override
+	public String print_survey() {
 	String s = "<table cellspacing='0' cellpadding='0' width=100%' border='0'>";
 	s += "<tr>";
 	s += "<td>" + text + "</td>";

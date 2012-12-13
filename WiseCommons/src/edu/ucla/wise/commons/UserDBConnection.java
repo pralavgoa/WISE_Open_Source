@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
 // nice thing tho is that STATUS is given back alongside the main data
 public class UserDBConnection {
     public User theUser = null;
-    private String surveyID;
-    private String mainTable_name;
+    private final String surveyID;
+    private final String mainTable_name;
     private DataBank db;
     private Connection conn = null;
     Logger log = Logger.getLogger(UserDBConnection.class);
@@ -71,7 +71,7 @@ public class UserDBConnection {
 	    // for the user
 	    // ultimately closed by finalize() below
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "User " + theUser.id
 			    + " unable to make its DB connection. Err: "
 			    + e.toString(), null);
@@ -87,11 +87,12 @@ public class UserDBConnection {
     }
 
     // finalize() called by garbage collector to clean up all objects
-    protected void finalize() throws Throwable {
+    @Override
+	protected void finalize() throws Throwable {
 	try {
 	    conn.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("Exception for user " + theUser.id
+	    WISELogger.logError("Exception for user " + theUser.id
 		    + " closing DB connection w/: " + e.toString(), null);
 	} finally {
 	    super.finalize();
@@ -128,7 +129,7 @@ public class UserDBConnection {
 		    values[i] = rs.getString(i + 1);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "DataBank - Invitee attr retrieval fail: " + e.toString(),
 		    null);
 	    return null; // signal failure to retrieve
@@ -147,7 +148,7 @@ public class UserDBConnection {
 	try {
 	    stmt = conn.createStatement();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - PAGE Store error: Can't get DB statement for user ["
 			    + theUser.id + "]: " + e.toString(), null);
 	}
@@ -178,7 +179,7 @@ public class UserDBConnection {
 	    try {
 		stmt.execute(sqlu);
 	    } catch (Exception e) {
-		WISEApplication.log_error("WISE - PAGE Store [" + theUser.id
+		WISELogger.logError("WISE - PAGE Store [" + theUser.id
 			+ "] query (" + sqlu + "): " + e.toString(), null);
 	    }
 	}
@@ -195,13 +196,13 @@ public class UserDBConnection {
 	try {
 	    stmt.execute(sql);
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - PAGE Store error [" + theUser.id
+	    WISELogger.logError("WISE - PAGE Store error [" + theUser.id
 		    + "] query (" + sql + "): " + e.toString(), null);
 	}
 	try {
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - PAGE Store closing error: " + e.toString(), null);
 	}
 
@@ -236,7 +237,7 @@ public class UserDBConnection {
 	    stmt.execute(sql);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("Databank SETUP STATUS:" + e.toString(),
+	    WISELogger.logError("Databank SETUP STATUS:" + e.toString(),
 		    null);
 	}
     }
@@ -258,7 +259,7 @@ public class UserDBConnection {
 	    stmt.close();
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "UDB get_currentPageName:" + e.toString(), e);
 	}
 	return status;
@@ -299,7 +300,7 @@ public class UserDBConnection {
 	    }
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("USER_DB SETUP DATA after " + i
+	    WISELogger.logError("USER_DB SETUP DATA after " + i
 		    + " cols read: " + e.toString(), e);
 	}
 	return h;
@@ -376,7 +377,7 @@ public class UserDBConnection {
 	try {
 	    statement = conn.createStatement();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - Repeat Item Store error: Can't get DB statement for user ["
 			    + theUser.id + "]: " + e.toString(), null);
 	}
@@ -384,14 +385,14 @@ public class UserDBConnection {
 	try {
 	    statement.execute(sql_statement.toString());
 	} catch (Exception e) {
-	    WISEApplication.log_error("WISE - Repeat Item Store error ["
+	    WISELogger.logError("WISE - Repeat Item Store error ["
 		    + theUser.id + "] query (" + sql_statement.toString()
 		    + "): " + e.toString(), null);
 	}
 	try {
 	    statement.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "WISE - Repeat Item Store closing error: " + e.toString(),
 		    null);
 	}
@@ -473,7 +474,7 @@ public class UserDBConnection {
 
 	} catch (Exception e) {
 
-	    WISEApplication.log_error("USER_DB REPEATING SET after "
+	    WISELogger.logError("USER_DB REPEATING SET after "
 		    + column_index + " cols read: " + e.toString(), e);
 	}
 
@@ -510,7 +511,7 @@ public class UserDBConnection {
 	    rs.close();
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("USER GET DATA: " + e.toString(), null);
+	    WISELogger.logError("USER GET DATA: " + e.toString(), null);
 	}
 	return h;
     }
@@ -525,7 +526,7 @@ public class UserDBConnection {
 	    stmt.execute(sql);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("Record page STATUS:" + e.toString(),
+	    WISELogger.logError("Record page STATUS:" + e.toString(),
 		    null);
 	}
     }
@@ -539,7 +540,7 @@ public class UserDBConnection {
 	    stmt.execute(sql);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "Record page submit error:" + e.toString(), null);
 	}
     }
@@ -561,7 +562,7 @@ public class UserDBConnection {
 		newid = Integer.toString(rsm.getInt(1));
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("Error recording new message using "
+	    WISELogger.logError("Error recording new message using "
 		    + sql + ": " + e.toString(), null);
 	}
 	return newid;
@@ -580,7 +581,7 @@ public class UserDBConnection {
 	    stmt.execute(sql);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("UDB set_userState:" + e.toString(),
+	    WISELogger.logError("UDB set_userState:" + e.toString(),
 		    null);
 	}
     }
@@ -599,7 +600,7 @@ public class UserDBConnection {
 		theState = rs.getString(1);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("UDB get_userState:" + e.toString(),
+	    WISELogger.logError("UDB get_userState:" + e.toString(),
 		    null);
 	}
 	return theState;
@@ -620,7 +621,7 @@ public class UserDBConnection {
 		theSeq = rs.getString(1);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("UDB get_userState:" + e.toString(),
+	    WISELogger.logError("UDB get_userState:" + e.toString(),
 		    null);
 	}
 	return theSeq;
@@ -635,8 +636,7 @@ public class UserDBConnection {
 	    stmt.execute(sql);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication
-		    .log_error("USER_DB SET CONSENT:" + e.toString(), e);
+			WISELogger.logError("USER_DB SET CONSENT:" + e.toString(), e);
 	}
     }
 
@@ -658,7 +658,7 @@ public class UserDBConnection {
 	    rs.close();
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("USER CHECK CONSENT:" + e.toString(), e);
+	    WISELogger.logError("USER CHECK CONSENT:" + e.toString(), e);
 	}
 	return resultp;
     }
@@ -686,7 +686,7 @@ public class UserDBConnection {
 		sessionid = rs.getString(1);
 	    statement.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER CREATE DB SESSION:" + e.toString(), null);
 	}
 	return sessionid;
@@ -701,7 +701,7 @@ public class UserDBConnection {
 	    stmt.execute(sql);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER CLOSE SURVEY SESSION :" + e.toString(), null);
 	}
     }
@@ -720,7 +720,7 @@ public class UserDBConnection {
 	    stmt.execute(sql2);
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error("USER SET DONE:" + e.toString(), null);
+	    WISELogger.logError("USER SET DONE:" + e.toString(), null);
 	}
     }
 
@@ -752,7 +752,7 @@ public class UserDBConnection {
 	    }
 	    stmt.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER DB get_completed_pages:" + e.toString(), e);
 	}
 	return pages;
@@ -769,7 +769,7 @@ public class UserDBConnection {
 		    + inviteeId + ", '" + surveyId + "')";
 	    resultp = (stmt.executeUpdate(sql)==1);
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER RECORD WELCOME HIT:" + e.toString(), e);
 	} finally {
 	    try {
@@ -798,7 +798,7 @@ public class UserDBConnection {
 		    + inviteeId + " AND survey='" + surveryId + "'";
 	    resultp = stmt.execute(sql);
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER RECORD DECLINE HIT:" + e.toString(), e);
 	} finally {
 	    try {
@@ -822,7 +822,7 @@ public class UserDBConnection {
 		    + inviteeId + ", \"" + reason + "\")";
 	    retVal = stmt.execute(sql);
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER SET DECLINE REASON:" + e.toString(), e);
 	} finally {
 	    try {
@@ -849,7 +849,7 @@ public class UserDBConnection {
 	    }
 	    rs.close();
 	} catch (Exception e) {
-	    WISEApplication.log_error(
+	    WISELogger.logError(
 		    "USER CHECK COMPLETION NUMBER:" + e.toString(), e);
 	} finally {
 	    try {

@@ -8,7 +8,7 @@
 	//get the server path
 	String path = request.getContextPath();
 %>
-<script language="javascript">
+<script>
 	function delete_inv(iid) {
 		if (confirm("Are you sure you want to delete invitee " + iid + "?")) {
 			document.form3.changeID.value = iid;
@@ -26,7 +26,6 @@
 <title>WISE Administration Tools - Load Invitee</title>
 </head>
 <body text="#333333" bgcolor="#FFFFCC">
-	<center>
 		<table cellpadding=2 cellspacing="0" border=0>
 			<tr>
 				<td width="160" align=center><img
@@ -65,7 +64,18 @@
 									return;
 								}
 								admin_info.update_invitees(request.getParameterMap());
-								out.println(admin_info.myStudySpace.db.addInviteeAndDisplayPage(request.getParameterMap()));
+								
+								Map<String,String> parametersMap = new HashMap<String,String>();
+								
+						
+								Enumeration e = request.getParameterNames();
+								while(e.hasMoreElements()){
+									String parameterName = (String) e.nextElement();
+									parametersMap.put(parameterName,request.getParameter(parameterName));
+								}
+								
+								
+								out.println(admin_info.myStudySpace.db.addInviteeAndDisplayPage(parametersMap));
 							%>
 						</table>
 					</form>
@@ -130,6 +140,5 @@
 				</td>
 			</tr>
 		</table>
-	</center>
 </body>
 </html>
