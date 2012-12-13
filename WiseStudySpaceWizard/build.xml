@@ -1,4 +1,5 @@
 <?xml version="1.0" ?> 
+<!DOCTYPE project>
 <project name="WiseStudySpaceWizard" default="war">
 
 	<path id="compile.classpath">
@@ -25,7 +26,8 @@
 			    <include name="**/SqlScripts/**"/>
 			</fileset>
 			<lib dir="WebContent/WEB-INF/lib"/>
-			<classes dir="build/classes"/>
+			<classes dir="build/classes" />
+			<classes dir="properties/" />
 		</war>
 	</target>
 	

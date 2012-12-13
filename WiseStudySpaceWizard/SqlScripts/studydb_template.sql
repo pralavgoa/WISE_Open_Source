@@ -268,6 +268,19 @@ CREATE TABLE `welcome_hits` (
   KEY `invitee` (`invitee`),
   CONSTRAINT `welcome_hits_ibfk_1` FOREIGN KEY (`invitee`) REFERENCES `invitee` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `wisefiles`
+--
+
+DROP TABLE IF EXISTS `wisefiles`;
+CREATE TABLE `wisefiles` (
+  `file_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `filename` varchar(45) NOT NULL,
+  `filecontents` longblob NOT NULL,
+  `upload_date` datetime NOT NULL,
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -277,4 +290,7 @@ CREATE TABLE `welcome_hits` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+
 

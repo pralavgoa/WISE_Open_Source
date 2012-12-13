@@ -29,6 +29,7 @@ public class StudySpaceParametersAcceptor extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
@@ -52,8 +53,11 @@ public class StudySpaceParametersAcceptor extends HttpServlet{
 
 		//If any of the parameters are null or empty, return an error response
 		if(Strings.isNullOrEmpty(serverURL) || Strings.isNullOrEmpty(serverAppName) || Strings.isNullOrEmpty(serverSharedLinkName)||Strings.isNullOrEmpty(directoryName)||Strings.isNullOrEmpty(databaseUsername)||Strings.isNullOrEmpty(databasePassword)||Strings.isNullOrEmpty(projectTitle)||Strings.isNullOrEmpty(databaseEncryptionKey)){
-			out.write("Please ensure that none of the parameters are empty");
-			out.write(studySpaceName+serverURL+serverAppName+serverSharedLinkName+directoryName+databaseUsername+databasePassword+projectTitle+databaseEncryptionKey);
+			out.write("<div>Please ensure that none of the parameters are empty</div>");
+			out.write("<div>" + studySpaceName + serverURL + serverAppName
+					+ serverSharedLinkName + directoryName + databaseUsername
+					+ databasePassword + projectTitle + databaseEncryptionKey
+					+ "</div>");
 			return;
 		}
 
@@ -61,14 +65,14 @@ public class StudySpaceParametersAcceptor extends HttpServlet{
 			// TODO: register the newly created study space in the study space table
 			
 			if(DatabaseConnector.writeStudySpaceParams(studySpaceName, serverURL, serverAppName, serverSharedLinkName, directoryName, databaseUsername, databaseName, databasePassword, projectTitle, databaseEncryptionKey)){
-				out.write("Study space has been registered to Study Space tables");
+				out.write("<div>Study space has been registered to Study Space tables</div>");
 			}
 			else{
-				out.write("Study space registration failed, please do it manually");
+				out.write("<div>Study space registration failed, please do it manually</div>");
 			}
-			out.write("Study space has been successfully created");
+			out.write("<div>Study space has been successfully created</div>");
 		}else{
-			out.write("Study space could not be successfully created. Check server logs for errors");
+			out.write("<div>Study space could not be successfully created. Check server logs for errors</div>");
 		}
 			return;
 

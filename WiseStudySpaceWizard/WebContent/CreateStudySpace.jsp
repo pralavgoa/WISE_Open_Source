@@ -7,14 +7,15 @@
 <title>Create Study Space</title>
 <!-- Add twitter bootstrap libraries -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="javascripts/CreateStudySpaceFormValidator.js"></script>
 </head>
 <body>
 	<!-- Make input boxes for entering all parameters -->
 	<div class="hero-unit">
 		<h3>WISE Study Space Creation Wizard</h3>
 	</div>
-	<form class="form-horizontal" action="submitStudySpaceParams"
-		method="get">
+	<form name="createStudySpaceForm" class="form-horizontal" action="submitStudySpaceParams"
+		method="get" onsubmit="return validateForm()">
 		<div class="control-group">
 			<label class="control-label" for="studySpaceName">Study Space
 				Name:</label>
@@ -77,7 +78,7 @@
 				encryption key:</label>
 			<div class="controls">
 				<input type="text" name="dbCryptKey"> 	
-				<button type="submit" class="btn">Submit</button>	
+				<input type="submit" class="btn" value="Submit">	
 			</div>
 		</div>
 		

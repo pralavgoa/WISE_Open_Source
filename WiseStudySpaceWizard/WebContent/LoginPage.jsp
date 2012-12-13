@@ -16,6 +16,12 @@
 	<a href="CreateStudySpace.jsp">Create a study space</a>
 	</div>
 	<div>
+	<a href="ViewStudySpaces.jsp">View current study spaces</a>
+	</div>
+		<div>
+	<a href="DestroyStudySpace.jsp">Destroy a study space</a>
+	</div>
+	<div>
 	
 	</div>
 	
