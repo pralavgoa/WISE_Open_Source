@@ -1,0 +1,29 @@
+Porting WISE Application to any other server will require few changes in the configuration files, and source files.
+
+Changes to the source files:
+1. survey/main.js 
+   modify two lines stating
+   window.parent.opener.location.replace('http://localhost:8080/WISE/survey/abort.htm')	 
+   to point to the correct host.
+   
+2. survey/thanks.htm
+   modify the line
+   {document.write("<p>You could now review the results of the survey. Please click the link to <a href='http://localhost:8080/WISE/survey/"+review_arg+"'>review the survey results.</a>")}
+
+3. survey/wise_outer_frame_test.htm
+   modify the src=... to correct url.
+   
+   
+Changes to the configuration file
+
+1. xml/dme/fileXX.xml where XX is the latest file
+      update the Forward_On= attribute
+      
+2. localwise.properties 
+		update the server.rootURL
+	
+3. wisetest.properties
+		update admin.server and dme.server
+		
+Update wisetest.properties: 
+mysql.server = sagedb.arc2.ucla.edu
