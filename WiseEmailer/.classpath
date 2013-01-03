@@ -13,8 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/WiseCommons"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Log4J"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Joda Time"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WISE"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
